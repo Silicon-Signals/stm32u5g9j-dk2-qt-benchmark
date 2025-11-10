@@ -1,5 +1,4 @@
 import QtQuick
-import QtQuick.Controls
 
 Rectangle {
     width: 800
@@ -12,49 +11,49 @@ Rectangle {
         anchors.fill: parent
         sourceComponent: {
             if (currentScreen === 0) {
-                mainScreen
+                mainScreen;
             } else if (currentScreen === 1) {
-                videoTest
+                videoTest;
             } else if (currentScreen === 2) {
-                test2D
+                test2D;
             } else if (currentScreen === 3) {
-                staticimage
+                staticimage;
             } else if (currentScreen === 4) {
-                svgDemo
+                svgDemo;
             } else if (currentScreen === 5) {
-                textScroll
+                textScroll;
             } else if (currentScreen === 6) {
-                resultScreen
+                resultScreen;
             }
         }
     }
 
     function goToResultScreen() {
-        currentScreen = 6
+        currentScreen = 6;
     }
 
     function goToTextScroll() {
-        currentScreen = 5
+        currentScreen = 5;
     }
 
     function goToSVGDemo() {
-        currentScreen = 4
+        currentScreen = 4;
     }
 
     function goToStaticImage() {
-        currentScreen = 3
+        currentScreen = 3;
     }
 
     function goToTest2D() {
-        currentScreen = 2
+        currentScreen = 2;
     }
 
     function goToVideoTest() {
-        currentScreen = 1
+        currentScreen = 1;
     }
 
     function goToMainScreen() {
-        currentScreen = 0
+        currentScreen = 0;
     }
 
     Component {

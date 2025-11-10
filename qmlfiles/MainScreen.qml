@@ -1,16 +1,15 @@
 import QtQuick
-import QtQuick.Controls
 
 Item {
     id: mainScreen
     width: 800
     height: 480
 
-    signal navigateToVideoTest()
-    signal navigateToTest2D()
-    signal navigateToStaticImage()
-    signal navigateToSVGDemo()
-    signal navigateToTextScroll()
+    signal navigateToVideoTest
+    signal navigateToTest2D
+    signal navigateToStaticImage
+    signal navigateToSVGDemo
+    signal navigateToTextScroll
 
     property bool isOpen: false
 
@@ -45,7 +44,8 @@ Item {
         Image {
             id: startButton
             anchors.centerIn: parent
-            width: 190; height: 188
+            width: 190
+            height: 188
             source: "images/ui_button_center.png"
             fillMode: Image.PreserveAspectFit
             transformOrigin: Item.Center
@@ -68,7 +68,8 @@ Item {
 
         Image {
             id: videotest
-            width: 60; height: 60
+            width: 60
+            height: 60
             source: "images/ui_button.png"
             fillMode: Image.PreserveAspectFit
             opacity: mainScreen.isOpen ? 1 : 0
@@ -82,9 +83,24 @@ Item {
                 onClicked: navigateToVideoTest()
             }
 
-            Behavior on x { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on y { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on opacity { NumberAnimation { duration: 1000; easing.type: Easing.Linear } }
+            Behavior on x {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on y {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.Linear
+                }
+            }
 
             Text {
                 anchors.centerIn: parent
@@ -98,7 +114,8 @@ Item {
 
         Image {
             id: test2D
-            width: 60; height: 60
+            width: 60
+            height: 60
             source: "images/ui_button.png"
             fillMode: Image.PreserveAspectFit
             opacity: mainScreen.isOpen ? 1 : 0
@@ -112,9 +129,24 @@ Item {
                 onClicked: navigateToTest2D()
             }
 
-            Behavior on x { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on y { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on opacity { NumberAnimation { duration: 1000; easing.type: Easing.Linear } }
+            Behavior on x {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on y {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.Linear
+                }
+            }
 
             Text {
                 anchors.centerIn: parent
@@ -128,7 +160,8 @@ Item {
 
         Image {
             id: staticimage
-            width: 60; height: 60
+            width: 60
+            height: 60
             source: "images/ui_button.png"
             fillMode: Image.PreserveAspectFit
             opacity: mainScreen.isOpen ? 1 : 0
@@ -142,9 +175,24 @@ Item {
                 onClicked: navigateToStaticImage()
             }
 
-            Behavior on x { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on y { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on opacity { NumberAnimation { duration: 1000; easing.type: Easing.Linear } }
+            Behavior on x {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on y {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.Linear
+                }
+            }
 
             Text {
                 anchors.centerIn: parent
@@ -158,7 +206,8 @@ Item {
 
         Image {
             id: svgDemo
-            width: 60; height: 60
+            width: 60
+            height: 60
             source: "images/ui_button.png"
             fillMode: Image.PreserveAspectFit
             opacity: mainScreen.isOpen ? 1 : 0
@@ -172,9 +221,24 @@ Item {
                 onClicked: navigateToSVGDemo()
             }
 
-            Behavior on x { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on y { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on opacity { NumberAnimation { duration: 1000; easing.type: Easing.Linear } }
+            Behavior on x {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on y {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.Linear
+                }
+            }
 
             Text {
                 anchors.centerIn: parent
@@ -188,7 +252,8 @@ Item {
 
         Image {
             id: textScroll
-            width: 60; height: 60
+            width: 60
+            height: 60
             source: "images/ui_button.png"
             fillMode: Image.PreserveAspectFit
             opacity: mainScreen.isOpen ? 1 : 0
@@ -202,9 +267,24 @@ Item {
                 onClicked: navigateToTextScroll()
             }
 
-            Behavior on x { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on y { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on opacity { NumberAnimation { duration: 1000; easing.type: Easing.Linear } }
+            Behavior on x {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on y {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.Linear
+                }
+            }
 
             Text {
                 anchors.centerIn: parent
@@ -218,7 +298,8 @@ Item {
 
         Image {
             id: closebutton
-            width: 60; height: 60
+            width: 60
+            height: 60
             source: "images/ui_button.png"
             fillMode: Image.PreserveAspectFit
             opacity: mainScreen.isOpen ? 1 : 0
@@ -232,13 +313,29 @@ Item {
                 onClicked: mainScreen.isOpen = false
             }
 
-            Behavior on x { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on y { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on opacity { NumberAnimation { duration: 1000; easing.type: Easing.Linear } }
+            Behavior on x {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on y {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.Linear
+                }
+            }
 
             Image {
                 id: cancel
-                width: 45; height: 45
+                width: 45
+                height: 45
                 visible: true
                 anchors.centerIn: parent
                 source: "images/cancel.png"

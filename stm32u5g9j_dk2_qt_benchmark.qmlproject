@@ -197,10 +197,10 @@ Project {
         files: []
         // Uncomment for adding Qul modules
         MCU.qulModules: [
-            "Qul::Controls",
-            "Qul::ControlsTemplates",
-            "Qul::Shapes",
-            "Qul::Timeline"
+            // "Qul::Controls",
+            // "Qul::ControlsTemplates",
+            // "Qul::Shapes",
+            // "Qul::Timeline"
         ]
     }
 
