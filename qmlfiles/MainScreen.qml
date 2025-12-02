@@ -1,23 +1,24 @@
 import QtQuick
-import QtQuick.Controls
 
 Item {
     id: mainScreen
     width: 800
     height: 480
+    x: 0
+    y: 0
 
-    signal navigateToVideoTest()
-    signal navigateToTest2D()
-    signal navigateToStaticImage()
-    signal navigateToSVGDemo()
-    signal navigateToTextScroll()
+    signal navigateToVideoTest
+    signal navigateToTest2D
+    signal navigateToStaticImage
+    signal navigateToSVGDemo
+    signal navigateToTextScroll
 
     property bool isOpen: false
 
-    property real radius: 150     // Distance from center when open
-    property real angleStep: 60   // 360° / 6 buttons = 60°
+-    property real radius: 150
+-    property real angleStep: 60
 
-    property real startAngle: 90 // Start exactly BELOW center button
+    property real startAngle: 90
 
     property real xOffset0: Math.cos((startAngle + 0 * angleStep) * Math.PI / 180) * radius
     property real yOffset0: Math.sin((startAngle + 0 * angleStep) * Math.PI / 180) * radius
@@ -37,15 +38,21 @@ Item {
     property real xOffset5: Math.cos((startAngle + 5 * angleStep) * Math.PI / 180) * radius
     property real yOffset5: Math.sin((startAngle + 5 * angleStep) * Math.PI / 180) * radius
 
+
     Image {
         id: backGround
+        width: 800
+        height: 480
+        x: 0
+        y: 0
         source: "images/ui_bg.png"
         fillMode: Image.PreserveAspectFit
 
         Image {
             id: startButton
             anchors.centerIn: parent
-            width: 190; height: 188
+            width: 190
+            height: 188
             source: "images/ui_button_center.png"
             fillMode: Image.PreserveAspectFit
             transformOrigin: Item.Center
@@ -68,13 +75,15 @@ Item {
 
         Image {
             id: videotest
-            width: 60; height: 60
+            width: 60
+            height: 60
             source: "images/ui_button.png"
             fillMode: Image.PreserveAspectFit
+            transformOrigin: Item.Center
             opacity: mainScreen.isOpen ? 1 : 0
 
-            x: parent.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset1 : 0)
-            y: parent.height / 2 - height / 2 + (mainScreen.isOpen ? mainScreen.yOffset1 : 0)
+            x: mainScreen.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset1 : 0)
+            y: mainScreen.height / 2 - height / 2 + (mainScreen.isOpen ? mainScreen.yOffset1 : 0)
 
             MouseArea {
                 anchors.fill: parent
@@ -82,9 +91,24 @@ Item {
                 onClicked: navigateToVideoTest()
             }
 
-            Behavior on x { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on y { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on opacity { NumberAnimation { duration: 1000; easing.type: Easing.Linear } }
+            Behavior on x {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on y {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.Linear
+                }
+            }
 
             Text {
                 anchors.centerIn: parent
@@ -98,13 +122,15 @@ Item {
 
         Image {
             id: test2D
-            width: 60; height: 60
+            width: 60
+            height: 60
             source: "images/ui_button.png"
             fillMode: Image.PreserveAspectFit
+            transformOrigin: Item.Center
             opacity: mainScreen.isOpen ? 1 : 0
 
-            x: parent.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset2 : 0)
-            y: parent.height / 2 - height / 2 + (mainScreen.isOpen ? mainScreen.yOffset2 : 0)
+            x: mainScreen.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset2 : 0)
+            y: mainScreen.height / 2 - height / 2 + (mainScreen.isOpen ? mainScreen.yOffset2 : 0)
 
             MouseArea {
                 anchors.fill: parent
@@ -112,9 +138,24 @@ Item {
                 onClicked: navigateToTest2D()
             }
 
-            Behavior on x { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on y { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on opacity { NumberAnimation { duration: 1000; easing.type: Easing.Linear } }
+            Behavior on x {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on y {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.Linear
+                }
+            }
 
             Text {
                 anchors.centerIn: parent
@@ -128,13 +169,15 @@ Item {
 
         Image {
             id: staticimage
-            width: 60; height: 60
+            width: 60
+            height: 60
             source: "images/ui_button.png"
             fillMode: Image.PreserveAspectFit
+            transformOrigin: Item.Center
             opacity: mainScreen.isOpen ? 1 : 0
 
-            x: parent.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset3 : 0)
-            y: parent.height / 2 - height / 2 + (mainScreen.isOpen ? mainScreen.yOffset3 : 0)
+            x: mainScreen.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset3 : 0)
+            y: mainScreen.height / 2 - height / 2 + (mainScreen.isOpen ? mainScreen.yOffset3 : 0)
 
             MouseArea {
                 anchors.fill: parent
@@ -142,9 +185,24 @@ Item {
                 onClicked: navigateToStaticImage()
             }
 
-            Behavior on x { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on y { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on opacity { NumberAnimation { duration: 1000; easing.type: Easing.Linear } }
+            Behavior on x {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on y {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.Linear
+                }
+            }
 
             Text {
                 anchors.centerIn: parent
@@ -158,13 +216,15 @@ Item {
 
         Image {
             id: svgDemo
-            width: 60; height: 60
+            width: 60
+            height: 60
             source: "images/ui_button.png"
             fillMode: Image.PreserveAspectFit
+            transformOrigin: Item.Center
             opacity: mainScreen.isOpen ? 1 : 0
 
-            x: parent.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset4 : 0)
-            y: parent.height / 2 - height / 2 + (mainScreen.isOpen ? mainScreen.yOffset4 : 0)
+            x: mainScreen.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset4 : 0)
+            y: mainScreen.height / 2 - height / 2 + (mainScreen.isOpen ? mainScreen.yOffset4 : 0)
 
             MouseArea {
                 anchors.fill: parent
@@ -172,9 +232,24 @@ Item {
                 onClicked: navigateToSVGDemo()
             }
 
-            Behavior on x { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on y { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on opacity { NumberAnimation { duration: 1000; easing.type: Easing.Linear } }
+            Behavior on x {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on y {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.Linear
+                }
+            }
 
             Text {
                 anchors.centerIn: parent
@@ -188,13 +263,15 @@ Item {
 
         Image {
             id: textScroll
-            width: 60; height: 60
+            width: 60
+            height: 60
             source: "images/ui_button.png"
             fillMode: Image.PreserveAspectFit
+            transformOrigin: Item.Center
             opacity: mainScreen.isOpen ? 1 : 0
 
-            x: parent.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset5 : 0)
-            y: parent.height / 2 - height / 2 + (mainScreen.isOpen ? mainScreen.yOffset5 : 0)
+            x: mainScreen.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset5 : 0)
+            y: mainScreen.height / 2 - height / 2 + (mainScreen.isOpen ? mainScreen.yOffset5 : 0)
 
             MouseArea {
                 anchors.fill: parent
@@ -202,9 +279,24 @@ Item {
                 onClicked: navigateToTextScroll()
             }
 
-            Behavior on x { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on y { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on opacity { NumberAnimation { duration: 1000; easing.type: Easing.Linear } }
+            Behavior on x {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on y {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.Linear
+                }
+            }
 
             Text {
                 anchors.centerIn: parent
@@ -218,13 +310,15 @@ Item {
 
         Image {
             id: closebutton
-            width: 60; height: 60
+            width: 60
+            height: 60
             source: "images/ui_button.png"
             fillMode: Image.PreserveAspectFit
+            transformOrigin: Item.Center
             opacity: mainScreen.isOpen ? 1 : 0
 
-            x: parent.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset0 : 0)
-            y: parent.height / 2 - height / 2 + (mainScreen.isOpen ? mainScreen.yOffset0 : 0)
+            x: mainScreen.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset0 : 0)
+            y: mainScreen.height / 2 - height / 2 + (mainScreen.isOpen ? mainScreen.yOffset0 : 0)
 
             MouseArea {
                 anchors.fill: parent
@@ -232,13 +326,29 @@ Item {
                 onClicked: mainScreen.isOpen = false
             }
 
-            Behavior on x { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on y { NumberAnimation { duration: 1000; easing.type: Easing.InOutQuad } }
-            Behavior on opacity { NumberAnimation { duration: 1000; easing.type: Easing.Linear } }
+            Behavior on x {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on y {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.Linear
+                }
+            }
 
             Image {
                 id: cancel
-                width: 45; height: 45
+                width: 45
+                height: 45
                 visible: true
                 anchors.centerIn: parent
                 source: "images/cancel.png"

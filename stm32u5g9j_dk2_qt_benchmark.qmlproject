@@ -49,7 +49,6 @@ Project {
             "qmlfiles/StaticImage.qml",
             "qmlfiles/SVGDemo.qml",
             "qmlfiles/TextScroll.qml",
-            "qmlfiles/MyButton.qml",
             "qmlfiles/ResultScreen.qml"
         ]
     }
@@ -197,10 +196,10 @@ Project {
         files: []
         // Uncomment for adding Qul modules
         MCU.qulModules: [
-            "Qul::Controls",
-            "Qul::ControlsTemplates",
-            "Qul::Shapes",
-            "Qul::Timeline"
+            // "Qul::Controls",
+            // "Qul::ControlsTemplates",
+            // "Qul::Shapes",
+            // "Qul::Timeline"
         ]
     }
 

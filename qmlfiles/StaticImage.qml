@@ -4,8 +4,10 @@ Item {
     id: staticimage
     width: 800
     height: 480
+    x: 0
+    y: 0
 
-    signal showResultScreen()
+    signal showResultScreen
 
     property int colorIndex: 0
     property string squareColor: "#FF0000"
@@ -21,7 +23,8 @@ Item {
             id: square
             x: 141
             y: 52
-            width: 150; height: 150
+            width: 150
+            height: 150
             color: squareColor
         }
 
@@ -30,7 +33,8 @@ Item {
             x: 482
             y: 292
             opacity: 0.5
-            width: 150; height: 150
+            width: 150
+            height: 150
             color: squareColor
         }
 
@@ -38,7 +42,8 @@ Item {
             id: rectange
             x: 466
             y: 77
-            width: 200; height: 100
+            width: 200
+            height: 100
             color: rectangleColor
             radius: 20
         }
@@ -47,7 +52,8 @@ Item {
             id: circle
             x: 141
             y: 277
-            width: 150; height: 150
+            width: 150
+            height: 150
             color: circleColor
             radius: 100
         }
@@ -57,7 +63,8 @@ Item {
             x: 557
             y: 217
             opacity: 0.5
-            width: 150; height: 150
+            width: 150
+            height: 150
             color: circleColor
             radius: 100
         }
@@ -71,10 +78,22 @@ Item {
         onTriggered: {
             colorIndex = (colorIndex + 1) % 3
 
-            switch(colorIndex) {
-                case 0: squareColor="#FF0000"; circleColor="#00FF00"; rectangleColor="#0000FF"; break
-                case 1: squareColor="#00FF00"; circleColor="#0000FF"; rectangleColor="#FF0000"; break
-                case 2: squareColor="#0000FF"; circleColor="#FF0000"; rectangleColor="#00FF00"; break
+            switch (colorIndex) {
+            case 0:
+                squareColor = "#FF0000"
+                circleColor = "#00FF00"
+                rectangleColor = "#0000FF"
+                break
+            case 1:
+                squareColor = "#00FF00"
+                circleColor = "#0000FF"
+                rectangleColor = "#FF0000"
+                break
+            case 2:
+                squareColor = "#0000FF"
+                circleColor = "#FF0000"
+                rectangleColor = "#00FF00"
+                break
             }
         }
     }
@@ -83,8 +102,10 @@ Item {
         id: stopTimer
         interval: 10000
         running: true
+        repeat: false
         onTriggered: {
-            showResultScreen()
+            frameTimer.running = false;
+            showResultScreen();
         }
     }
 }

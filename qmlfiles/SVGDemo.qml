@@ -1,12 +1,13 @@
 import QtQuick
-import QtQuick.Controls
 
 Item {
     id: svgDemo
     width: 800
     height: 480
+    x: 0
+    y: 0
 
-    signal showResultScreen()
+    signal showResultScreen
 
     property int tiredelay: 700
     property int pairhold: 300
@@ -153,93 +154,518 @@ Item {
         loops: Animation.Infinite
 
         ParallelAnimation {
-            PropertyAnimation { target: tire1; property: "x"; to: 80; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire1; property: "y"; to: 16; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire2; property: "x"; to: 188; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire2; property: "y"; to: 127; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire3; property: "x"; to: 367; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire3; property: "y"; to: 165; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire4; property: "x"; to: 546; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire4; property: "y"; to: 127; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire5; property: "x"; to: 659; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire5; property: "y"; to: 16; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tirepair3; property: "visible"; to: true; duration: pairhold }
-            PropertyAnimation { target: tirepair4; property: "visible"; to: false; duration: pairhold }
-            PropertyAnimation { target: tirepair5; property: "visible"; to: false; duration: pairhold }
-            PropertyAnimation { target: tirepair1; property: "visible"; to: false; duration: pairhold }
-            PropertyAnimation { target: tirepair2; property: "visible"; to: false; duration: pairhold }
+            PropertyAnimation {
+                target: tire1
+                property: "x"
+                to: 80
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire1
+                property: "y"
+                to: 16
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire2
+                property: "x"
+                to: 188
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire2
+                property: "y"
+                to: 127
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire3
+                property: "x"
+                to: 367
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire3
+                property: "y"
+                to: 165
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire4
+                property: "x"
+                to: 546
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire4
+                property: "y"
+                to: 127
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire5
+                property: "x"
+                to: 659
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire5
+                property: "y"
+                to: 16
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tirepair3
+                property: "visible"
+                to: true
+                duration: pairhold
+            }
+            PropertyAnimation {
+                target: tirepair4
+                property: "visible"
+                to: false
+                duration: pairhold
+            }
+            PropertyAnimation {
+                target: tirepair5
+                property: "visible"
+                to: false
+                duration: pairhold
+            }
+            PropertyAnimation {
+                target: tirepair1
+                property: "visible"
+                to: false
+                duration: pairhold
+            }
+            PropertyAnimation {
+                target: tirepair2
+                property: "visible"
+                to: false
+                duration: pairhold
+            }
         }
 
         ParallelAnimation {
-            PropertyAnimation { target: tire1; property: "x"; to: 659; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire1; property: "y"; to: 16; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire2; property: "x"; to: 80; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire2; property: "y"; to: 16; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire3; property: "x"; to: 188; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire3; property: "y"; to: 127; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire4; property: "x"; to: 367; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire4; property: "y"; to: 165; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire5; property: "x"; to: 546; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire5; property: "y"; to: 127; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tirepair3; property: "visible"; to: false; duration: pairhold }
-            PropertyAnimation { target: tirepair4; property: "visible"; to: true; duration: pairhold }
-            PropertyAnimation { target: tirepair5; property: "visible"; to: false; duration: pairhold }
-            PropertyAnimation { target: tirepair1; property: "visible"; to: false; duration: pairhold }
-            PropertyAnimation { target: tirepair2; property: "visible"; to: false; duration: pairhold }
+            PropertyAnimation {
+                target: tire1
+                property: "x"
+                to: 659
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire1
+                property: "y"
+                to: 16
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire2
+                property: "x"
+                to: 80
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire2
+                property: "y"
+                to: 16
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire3
+                property: "x"
+                to: 188
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire3
+                property: "y"
+                to: 127
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire4
+                property: "x"
+                to: 367
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire4
+                property: "y"
+                to: 165
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire5
+                property: "x"
+                to: 546
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire5
+                property: "y"
+                to: 127
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tirepair3
+                property: "visible"
+                to: false
+                duration: pairhold
+            }
+            PropertyAnimation {
+                target: tirepair4
+                property: "visible"
+                to: true
+                duration: pairhold
+            }
+            PropertyAnimation {
+                target: tirepair5
+                property: "visible"
+                to: false
+                duration: pairhold
+            }
+            PropertyAnimation {
+                target: tirepair1
+                property: "visible"
+                to: false
+                duration: pairhold
+            }
+            PropertyAnimation {
+                target: tirepair2
+                property: "visible"
+                to: false
+                duration: pairhold
+            }
         }
 
         ParallelAnimation {
-            PropertyAnimation { target: tire1; property: "x"; to: 546; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire1; property: "y"; to: 127; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire2; property: "x"; to: 659; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire2; property: "y"; to: 16; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire3; property: "x"; to: 80; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire3; property: "y"; to: 16; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire4; property: "x"; to: 188; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire4; property: "y"; to: 127; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire5; property: "x"; to: 367; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire5; property: "y"; to: 165; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tirepair3; property: "visible"; to: false; duration: pairhold }
-            PropertyAnimation { target: tirepair4; property: "visible"; to: false; duration: pairhold }
-            PropertyAnimation { target: tirepair5; property: "visible"; to: true; duration: pairhold }
-            PropertyAnimation { target: tirepair1; property: "visible"; to: false; duration: pairhold }
-            PropertyAnimation { target: tirepair2; property: "visible"; to: false; duration: pairhold }
+            PropertyAnimation {
+                target: tire1
+                property: "x"
+                to: 546
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire1
+                property: "y"
+                to: 127
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire2
+                property: "x"
+                to: 659
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire2
+                property: "y"
+                to: 16
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire3
+                property: "x"
+                to: 80
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire3
+                property: "y"
+                to: 16
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire4
+                property: "x"
+                to: 188
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire4
+                property: "y"
+                to: 127
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire5
+                property: "x"
+                to: 367
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire5
+                property: "y"
+                to: 165
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tirepair3
+                property: "visible"
+                to: false
+                duration: pairhold
+            }
+            PropertyAnimation {
+                target: tirepair4
+                property: "visible"
+                to: false
+                duration: pairhold
+            }
+            PropertyAnimation {
+                target: tirepair5
+                property: "visible"
+                to: true
+                duration: pairhold
+            }
+            PropertyAnimation {
+                target: tirepair1
+                property: "visible"
+                to: false
+                duration: pairhold
+            }
+            PropertyAnimation {
+                target: tirepair2
+                property: "visible"
+                to: false
+                duration: pairhold
+            }
         }
 
         ParallelAnimation {
-            PropertyAnimation { target: tire1; property: "x"; to: 367; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire1; property: "y"; to: 165; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire2; property: "x"; to: 546; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire2; property: "y"; to: 127; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire3; property: "x"; to: 659; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire3; property: "y"; to: 16; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire4; property: "x"; to: 80; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire4; property: "y"; to: 16; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire5; property: "x"; to: 188; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire5; property: "y"; to: 127; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tirepair3; property: "visible"; to: false; duration: pairhold }
-            PropertyAnimation { target: tirepair4; property: "visible"; to: false; duration: pairhold }
-            PropertyAnimation { target: tirepair5; property: "visible"; to: false; duration: pairhold }
-            PropertyAnimation { target: tirepair1; property: "visible"; to: true; duration: pairhold }
-            PropertyAnimation { target: tirepair2; property: "visible"; to: false; duration: pairhold }
+            PropertyAnimation {
+                target: tire1
+                property: "x"
+                to: 367
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire1
+                property: "y"
+                to: 165
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire2
+                property: "x"
+                to: 546
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire2
+                property: "y"
+                to: 127
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire3
+                property: "x"
+                to: 659
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire3
+                property: "y"
+                to: 16
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire4
+                property: "x"
+                to: 80
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire4
+                property: "y"
+                to: 16
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire5
+                property: "x"
+                to: 188
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire5
+                property: "y"
+                to: 127
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tirepair3
+                property: "visible"
+                to: false
+                duration: pairhold
+            }
+            PropertyAnimation {
+                target: tirepair4
+                property: "visible"
+                to: false
+                duration: pairhold
+            }
+            PropertyAnimation {
+                target: tirepair5
+                property: "visible"
+                to: false
+                duration: pairhold
+            }
+            PropertyAnimation {
+                target: tirepair1
+                property: "visible"
+                to: true
+                duration: pairhold
+            }
+            PropertyAnimation {
+                target: tirepair2
+                property: "visible"
+                to: false
+                duration: pairhold
+            }
         }
 
         ParallelAnimation {
-            PropertyAnimation { target: tire1; property: "x"; to: 188; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire1; property: "y"; to: 127; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire2; property: "x"; to: 367; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire2; property: "y"; to: 165; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire3; property: "x"; to: 546; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire3; property: "y"; to: 127; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire4; property: "x"; to: 659; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire4; property: "y"; to: 16; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire5; property: "x"; to: 80; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tire5; property: "y"; to: 16; duration: tiredelay; easing.type: Easing.InOutQuad }
-            PropertyAnimation { target: tirepair3; property: "visible"; to: false; duration: pairhold }
-            PropertyAnimation { target: tirepair4; property: "visible"; to: false; duration: pairhold }
-            PropertyAnimation { target: tirepair5; property: "visible"; to: false; duration: pairhold }
-            PropertyAnimation { target: tirepair1; property: "visible"; to: false; duration: pairhold }
-            PropertyAnimation { target: tirepair2; property: "visible"; to: true; duration: pairhold }
+            PropertyAnimation {
+                target: tire1
+                property: "x"
+                to: 188
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire1
+                property: "y"
+                to: 127
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire2
+                property: "x"
+                to: 367
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire2
+                property: "y"
+                to: 165
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire3
+                property: "x"
+                to: 546
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire3
+                property: "y"
+                to: 127
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire4
+                property: "x"
+                to: 659
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire4
+                property: "y"
+                to: 16
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire5
+                property: "x"
+                to: 80
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tire5
+                property: "y"
+                to: 16
+                duration: tiredelay
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: tirepair3
+                property: "visible"
+                to: false
+                duration: pairhold
+            }
+            PropertyAnimation {
+                target: tirepair4
+                property: "visible"
+                to: false
+                duration: pairhold
+            }
+            PropertyAnimation {
+                target: tirepair5
+                property: "visible"
+                to: false
+                duration: pairhold
+            }
+            PropertyAnimation {
+                target: tirepair1
+                property: "visible"
+                to: false
+                duration: pairhold
+            }
+            PropertyAnimation {
+                target: tirepair2
+                property: "visible"
+                to: true
+                duration: pairhold
+            }
         }
     }
 
@@ -249,7 +675,8 @@ Item {
         running: true
         repeat: false
         onTriggered: {
-            showResultScreen()
+            tireAnimation.running = false;
+            showResultScreen();
         }
     }
 }

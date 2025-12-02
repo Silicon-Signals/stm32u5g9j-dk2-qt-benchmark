@@ -1,12 +1,13 @@
 import QtQuick
-import QtQuick.Controls
 
 Item {
     id: textScroll
     width: 800
     height: 480
+    x: 0
+    y: 0
 
-    signal showResultScreen()
+    signal showResultScreen
 
     property string scroll1: "\n          The STM32U5G9J-DK2 Discovery kit is a complete demonstration and"
     property string scroll2: " development platform for the STM32U5G9ZJT6Q microcontroller, featuring"
@@ -78,45 +79,240 @@ Item {
                 }
 
                 // Add each chunk as separate Text items
-                Text { width: parent.width; font.pixelSize: 25; text: scroll1; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll2; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll3; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll4; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll5; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll6; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll7; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll8; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll9; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll10; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll11; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll12; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll13; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll14; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll15; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll16; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll17; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll18; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll19; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll20; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll21; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll22; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll23; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll24; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll25; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll26; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll27; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll28; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll29; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll30; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll31; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll32; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll33; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll34; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll35; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll36; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll37; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll38; font.family: "Calibri" }
-                Text { width: parent.width; font.pixelSize: 25; text: scroll39; font.family: "Calibri" }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll1
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll2
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll3
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll4
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll5
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll6
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll7
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll8
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll9
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll10
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll11
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll12
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll13
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll14
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll15
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll16
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll17
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll18
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll19
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll20
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll21
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll22
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll23
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll24
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll25
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll26
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll27
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll28
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll29
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll30
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll31
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll32
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll33
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll34
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll35
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll36
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll37
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll38
+                    font.family: "Calibri"
+                }
+                Text {
+                    width: parent.width
+                    font.pixelSize: 25
+                    text: scroll39
+                    font.family: "Calibri"
+                }
             }
         }
     }
@@ -135,7 +331,9 @@ Item {
             easing.type: Easing.Linear
         }
 
-        PauseAnimation { duration: 500 }
+        PauseAnimation {
+            duration: 500
+        }
 
         NumberAnimation {
             target: verticalView
@@ -146,7 +344,9 @@ Item {
             easing.type: Easing.Linear
         }
 
-        PauseAnimation { duration: 500 }
+        PauseAnimation {
+            duration: 500
+        }
     }
 
     Timer {
@@ -155,7 +355,8 @@ Item {
         running: true
         repeat: false
         onTriggered: {
-            showResultScreen()
+            smoothScroll.running = false;
+            showResultScreen();
         }
     }
 }

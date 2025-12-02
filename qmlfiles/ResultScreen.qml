@@ -4,8 +4,10 @@ Item {
     id: resultScreen
     width: 800
     height: 480
+    x: 0
+    y: 0
 
-    signal backToMain()
+    signal backToMain
 
     Image {
         id: resultBG
@@ -23,8 +25,7 @@ Item {
 
             MouseArea {
                 anchors.fill: parent
-                onClicked:
-                    backToMain()
+                onClicked: backToMain();
             }
         }
 
