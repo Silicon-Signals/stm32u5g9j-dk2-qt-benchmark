@@ -15,8 +15,8 @@ Item {
 
     property bool isOpen: false
 
--    property real radius: 150
--    property real angleStep: 60
+    property real radius: 150
+    property real angleStep: 60
 
     property real startAngle: 90
 
