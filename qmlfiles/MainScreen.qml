@@ -12,11 +12,13 @@ Item {
     signal navigateToStaticImage
     signal navigateToSVGDemo
     signal navigateToTextScroll
+    signal navigateToMotorCluster
 
     property bool isOpen: false
+    property bool skipAnimationOnce : false
 
-    property real radius: 150
-    property real angleStep: 60
+    property real radius: 170
+    property real angleStep: (360 / 7)
 
     property real startAngle: 90
 
@@ -38,6 +40,8 @@ Item {
     property real xOffset5: Math.cos((startAngle + 5 * angleStep) * Math.PI / 180) * radius
     property real yOffset5: Math.sin((startAngle + 5 * angleStep) * Math.PI / 180) * radius
 
+    property real xOffset6: Math.cos((startAngle + 6 * angleStep) * Math.PI / 180) * radius
+    property real yOffset6: Math.sin((startAngle + 6 * angleStep) * Math.PI / 180) * radius
 
     Image {
         id: backGround
@@ -91,19 +95,28 @@ Item {
                 onClicked: navigateToVideoTest()
             }
 
+            onXChanged: {
+                if (mainScreen.skipAnimationOnce) {
+                    mainScreen.skipAnimationOnce = false
+                }
+            }
+
             Behavior on x {
+                enabled: !mainScreen.skipAnimationOnce
                 NumberAnimation {
                     duration: 1000
                     easing.type: Easing.InOutQuad
                 }
             }
             Behavior on y {
+                enabled: !mainScreen.skipAnimationOnce
                 NumberAnimation {
                     duration: 1000
                     easing.type: Easing.InOutQuad
                 }
             }
             Behavior on opacity {
+                enabled: !mainScreen.skipAnimationOnce
                 NumberAnimation {
                     duration: 1000
                     easing.type: Easing.Linear
@@ -138,19 +151,28 @@ Item {
                 onClicked: navigateToTest2D()
             }
 
+            onXChanged: {
+                if (mainScreen.skipAnimationOnce) {
+                    mainScreen.skipAnimationOnce = false
+                }
+            }
+
             Behavior on x {
+                enabled: !mainScreen.skipAnimationOnce
                 NumberAnimation {
                     duration: 1000
                     easing.type: Easing.InOutQuad
                 }
             }
             Behavior on y {
+                enabled: !mainScreen.skipAnimationOnce
                 NumberAnimation {
                     duration: 1000
                     easing.type: Easing.InOutQuad
                 }
             }
             Behavior on opacity {
+                enabled: !mainScreen.skipAnimationOnce
                 NumberAnimation {
                     duration: 1000
                     easing.type: Easing.Linear
@@ -185,19 +207,28 @@ Item {
                 onClicked: navigateToStaticImage()
             }
 
+            onXChanged: {
+                if (mainScreen.skipAnimationOnce) {
+                    mainScreen.skipAnimationOnce = false
+                }
+            }
+
             Behavior on x {
+                enabled: !mainScreen.skipAnimationOnce
                 NumberAnimation {
                     duration: 1000
                     easing.type: Easing.InOutQuad
                 }
             }
             Behavior on y {
+                enabled: !mainScreen.skipAnimationOnce
                 NumberAnimation {
                     duration: 1000
                     easing.type: Easing.InOutQuad
                 }
             }
             Behavior on opacity {
+                enabled: !mainScreen.skipAnimationOnce
                 NumberAnimation {
                     duration: 1000
                     easing.type: Easing.Linear
@@ -232,19 +263,28 @@ Item {
                 onClicked: navigateToSVGDemo()
             }
 
+            onXChanged: {
+                if (mainScreen.skipAnimationOnce) {
+                    mainScreen.skipAnimationOnce = false
+                }
+            }
+
             Behavior on x {
+                enabled: !mainScreen.skipAnimationOnce
                 NumberAnimation {
                     duration: 1000
                     easing.type: Easing.InOutQuad
                 }
             }
             Behavior on y {
+                enabled: !mainScreen.skipAnimationOnce
                 NumberAnimation {
                     duration: 1000
                     easing.type: Easing.InOutQuad
                 }
             }
             Behavior on opacity {
+                enabled: !mainScreen.skipAnimationOnce
                 NumberAnimation {
                     duration: 1000
                     easing.type: Easing.Linear
@@ -279,19 +319,28 @@ Item {
                 onClicked: navigateToTextScroll()
             }
 
+            onXChanged: {
+                if (mainScreen.skipAnimationOnce) {
+                    mainScreen.skipAnimationOnce = false
+                }
+            }
+
             Behavior on x {
+                enabled: !mainScreen.skipAnimationOnce
                 NumberAnimation {
                     duration: 1000
                     easing.type: Easing.InOutQuad
                 }
             }
             Behavior on y {
+                enabled: !mainScreen.skipAnimationOnce
                 NumberAnimation {
                     duration: 1000
                     easing.type: Easing.InOutQuad
                 }
             }
             Behavior on opacity {
+                enabled: !mainScreen.skipAnimationOnce
                 NumberAnimation {
                     duration: 1000
                     easing.type: Easing.Linear
@@ -301,6 +350,62 @@ Item {
             Text {
                 anchors.centerIn: parent
                 text: " Text\nScroll"
+                color: "white"
+                font.family: "Calibri"
+                font.pixelSize: 14
+                font.bold: true
+            }
+        }
+
+        Image {
+            id: motorCluster
+            width: 60
+            height: 60
+            source: "images/ui_button.png"
+            fillMode: Image.PreserveAspectFit
+            transformOrigin: Item.Center
+            opacity: mainScreen.isOpen ? 1 : 0
+
+            x: mainScreen.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset6 : 0)
+            y: mainScreen.height / 2 - height / 2 + (mainScreen.isOpen ? mainScreen.yOffset6 : 0)
+
+            MouseArea {
+                anchors.fill: parent
+                enabled: mainScreen.isOpen
+                onClicked: navigateToMotorCluster()
+            }
+
+            onXChanged: {
+                if (mainScreen.skipAnimationOnce) {
+                    mainScreen.skipAnimationOnce = false
+                }
+            }
+
+            Behavior on x {
+                enabled: !mainScreen.skipAnimationOnce
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on y {
+                enabled: !mainScreen.skipAnimationOnce
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on opacity {
+                enabled: !mainScreen.skipAnimationOnce
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.Linear
+                }
+            }
+
+            Text {
+                anchors.centerIn: parent
+                text: "Cluster"
                 color: "white"
                 font.family: "Calibri"
                 font.pixelSize: 14
@@ -326,19 +431,28 @@ Item {
                 onClicked: mainScreen.isOpen = false
             }
 
+            onXChanged: {
+                if (mainScreen.skipAnimationOnce) {
+                    mainScreen.skipAnimationOnce = false
+                }
+            }
+
             Behavior on x {
+                enabled: !mainScreen.skipAnimationOnce
                 NumberAnimation {
                     duration: 1000
                     easing.type: Easing.InOutQuad
                 }
             }
             Behavior on y {
+                enabled: !mainScreen.skipAnimationOnce
                 NumberAnimation {
                     duration: 1000
                     easing.type: Easing.InOutQuad
                 }
             }
             Behavior on opacity {
+                enabled: !mainScreen.skipAnimationOnce
                 NumberAnimation {
                     duration: 1000
                     easing.type: Easing.Linear
