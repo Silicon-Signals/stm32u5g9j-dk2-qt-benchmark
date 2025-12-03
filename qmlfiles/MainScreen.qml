@@ -1,462 +1,147 @@
 import QtQuick
 
-Item {
+Image {
     id: mainScreen
-    width: 800
-    height: 480
+    source: "images/ui_bg.png"
 
-    signal navigateToVideoTest
-    signal navigateToTest2D
-    signal navigateToStaticImage
-    signal navigateToSVGDemo
-    signal navigateToTextScroll
-    signal navigateToMotorCluster
+    signal navigateTo(index: int)
+
+    enum ScreenIndex {
+        MainscreenButton = 0,
+        VideoTest,
+        Test2D,
+        StaticImage,
+        SVGDemo,
+        TextScroll,
+        MotorCluster,
+        ResultScreen
+    }
 
     property bool isOpen: false
-    property bool skipAnimationOnce : false
+    property bool forceOpen : false
 
-    property real radius: 170
-    property real angleStep: (360 / 7)
-
-    property real startAngle: 90
-
-    property real xOffset0: Math.cos((startAngle + 0 * angleStep) * Math.PI / 180) * radius
-    property real yOffset0: Math.sin((startAngle + 0 * angleStep) * Math.PI / 180) * radius
-
-    property real xOffset1: Math.cos((startAngle + 1 * angleStep) * Math.PI / 180) * radius
-    property real yOffset1: Math.sin((startAngle + 1 * angleStep) * Math.PI / 180) * radius
-
-    property real xOffset2: Math.cos((startAngle + 2 * angleStep) * Math.PI / 180) * radius
-    property real yOffset2: Math.sin((startAngle + 2 * angleStep) * Math.PI / 180) * radius
-
-    property real xOffset3: Math.cos((startAngle + 3 * angleStep) * Math.PI / 180) * radius
-    property real yOffset3: Math.sin((startAngle + 3 * angleStep) * Math.PI / 180) * radius
-
-    property real xOffset4: Math.cos((startAngle + 4 * angleStep) * Math.PI / 180) * radius
-    property real yOffset4: Math.sin((startAngle + 4 * angleStep) * Math.PI / 180) * radius
-
-    property real xOffset5: Math.cos((startAngle + 5 * angleStep) * Math.PI / 180) * radius
-    property real yOffset5: Math.sin((startAngle + 5 * angleStep) * Math.PI / 180) * radius
-
-    property real xOffset6: Math.cos((startAngle + 6 * angleStep) * Math.PI / 180) * radius
-    property real yOffset6: Math.sin((startAngle + 6 * angleStep) * Math.PI / 180) * radius
-
-    Image {
-        id: backGround
-        width: 800
-        height: 480
-        x: 0
-        y: 0
-        source: "images/ui_bg.png"
-
-        Image {
-            id: startButton
-            anchors.centerIn: parent
-            width: 190
-            height: 188
-            source: "images/ui_button_center.png"
-            transformOrigin: Item.Center
-
-            Text {
-                anchors.centerIn: parent
-                text: "START"
-                color: "white"
-                font.family: "Calibri"
-                font.pixelSize: 44
-                visible: !mainScreen.isOpen
-                font.bold: true
-            }
-
-            MouseArea {
-                anchors.fill: startButton
-                onClicked: mainScreen.isOpen = true
-            }
+    onIsOpenChanged: {
+        if (isOpen) {
+            forceOpen = false;
         }
+    }
+
+    function handleClick(index: int) {
+        if (index === MainScreen.ScreenIndex.MainscreenButton) {
+            isOpen = false;
+        } else {
+            navigateTo(index);
+        }
+    }
+
+    Component {
+        id: buttonComponent
 
         Image {
-            id: videotest
-            width: 60
-            height: 60
-            source: "images/ui_button.png"
-            transformOrigin: Item.Center
-            opacity: mainScreen.isOpen ? 1 : 0
+            id: button
 
-            x: mainScreen.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset1 : 0)
-            y: mainScreen.height / 2 - height / 2 + (mainScreen.isOpen ? mainScreen.yOffset1 : 0)
+            readonly property real radius: 170
+            readonly property real angleStep: (360 / 7)
+            readonly property real startAngle: 90
+
+            readonly property real xOffset: Math.cos((startAngle + index * angleStep) * Math.PI / 180) * radius
+            readonly property real yOffset: Math.sin((startAngle + index * angleStep) * Math.PI / 180) * radius
+
+            source: "images/ui_button.png"
+
+            opacity: isOpen ? 1 : 0
+
+            x: 800 / 2 - width / 2 + (isOpen ? xOffset : 0)
+            y: 480 / 2 - height / 2 + (isOpen ? yOffset : 0)
 
             MouseArea {
                 anchors.fill: parent
-                enabled: mainScreen.isOpen
-                onClicked: navigateToVideoTest()
-            }
-
-            onXChanged: {
-                if (mainScreen.skipAnimationOnce) {
-                    mainScreen.skipAnimationOnce = false
-                }
+                enabled: isOpen
+                onClicked: handleClick(index)
             }
 
             Behavior on x {
-                enabled: !mainScreen.skipAnimationOnce
                 NumberAnimation {
-                    duration: 1000
+                    duration: forceOpen ? 1 : 1000
                     easing.type: Easing.InOutQuad
                 }
             }
             Behavior on y {
-                enabled: !mainScreen.skipAnimationOnce
                 NumberAnimation {
-                    duration: 1000
+                    duration: forceOpen ? 1 : 1000
                     easing.type: Easing.InOutQuad
                 }
             }
             Behavior on opacity {
-                enabled: !mainScreen.skipAnimationOnce
                 NumberAnimation {
-                    duration: 1000
+                    duration: forceOpen ? 1 : 1000
                     easing.type: Easing.Linear
                 }
             }
 
             Text {
+                id: buttonText
                 anchors.centerIn: parent
-                text: "Video\n  Test"
+                text: switch (index) {
+                case MainScreen.ScreenIndex.VideoTest:
+                    "Video\n  Test";
+                    break;
+                case MainScreen.ScreenIndex.Test2D:
+                    "2D";
+                    break;
+                case MainScreen.ScreenIndex.StaticImage:
+                    "Static";
+                    break;
+                case MainScreen.ScreenIndex.SVGDemo:
+                    "SVG";
+                    break;
+                case MainScreen.ScreenIndex.TextScroll:
+                    " Text\nScroll";
+                    break;
+                case MainScreen.ScreenIndex.MotorCluster:
+                    "Cluster";
+                    break;
+                default:
+                    "";
+                }
                 color: "white"
                 font.family: "Calibri"
                 font.pixelSize: 14
                 font.bold: true
-            }
-        }
-
-        Image {
-            id: test2D
-            width: 60
-            height: 60
-            source: "images/ui_button.png"
-            transformOrigin: Item.Center
-            opacity: mainScreen.isOpen ? 1 : 0
-
-            x: mainScreen.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset2 : 0)
-            y: mainScreen.height / 2 - height / 2 + (mainScreen.isOpen ? mainScreen.yOffset2 : 0)
-
-            MouseArea {
-                anchors.fill: parent
-                enabled: mainScreen.isOpen
-                onClicked: navigateToTest2D()
-            }
-
-            onXChanged: {
-                if (mainScreen.skipAnimationOnce) {
-                    mainScreen.skipAnimationOnce = false
-                }
-            }
-
-            Behavior on x {
-                enabled: !mainScreen.skipAnimationOnce
-                NumberAnimation {
-                    duration: 1000
-                    easing.type: Easing.InOutQuad
-                }
-            }
-            Behavior on y {
-                enabled: !mainScreen.skipAnimationOnce
-                NumberAnimation {
-                    duration: 1000
-                    easing.type: Easing.InOutQuad
-                }
-            }
-            Behavior on opacity {
-                enabled: !mainScreen.skipAnimationOnce
-                NumberAnimation {
-                    duration: 1000
-                    easing.type: Easing.Linear
-                }
-            }
-
-            Text {
-                anchors.centerIn: parent
-                text: "2D"
-                color: "white"
-                font.family: "Calibri"
-                font.pixelSize: 14
-                font.bold: true
-            }
-        }
-
-        Image {
-            id: staticimage
-            width: 60
-            height: 60
-            source: "images/ui_button.png"
-            transformOrigin: Item.Center
-            opacity: mainScreen.isOpen ? 1 : 0
-
-            x: mainScreen.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset3 : 0)
-            y: mainScreen.height / 2 - height / 2 + (mainScreen.isOpen ? mainScreen.yOffset3 : 0)
-
-            MouseArea {
-                anchors.fill: parent
-                enabled: mainScreen.isOpen
-                onClicked: navigateToStaticImage()
-            }
-
-            onXChanged: {
-                if (mainScreen.skipAnimationOnce) {
-                    mainScreen.skipAnimationOnce = false
-                }
-            }
-
-            Behavior on x {
-                enabled: !mainScreen.skipAnimationOnce
-                NumberAnimation {
-                    duration: 1000
-                    easing.type: Easing.InOutQuad
-                }
-            }
-            Behavior on y {
-                enabled: !mainScreen.skipAnimationOnce
-                NumberAnimation {
-                    duration: 1000
-                    easing.type: Easing.InOutQuad
-                }
-            }
-            Behavior on opacity {
-                enabled: !mainScreen.skipAnimationOnce
-                NumberAnimation {
-                    duration: 1000
-                    easing.type: Easing.Linear
-                }
-            }
-
-            Text {
-                anchors.centerIn: parent
-                text: "Static"
-                color: "white"
-                font.family: "Calibri"
-                font.pixelSize: 14
-                font.bold: true
-            }
-        }
-
-        Image {
-            id: svgDemo
-            width: 60
-            height: 60
-            source: "images/ui_button.png"
-            transformOrigin: Item.Center
-            opacity: mainScreen.isOpen ? 1 : 0
-
-            x: mainScreen.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset4 : 0)
-            y: mainScreen.height / 2 - height / 2 + (mainScreen.isOpen ? mainScreen.yOffset4 : 0)
-
-            MouseArea {
-                anchors.fill: parent
-                enabled: mainScreen.isOpen
-                onClicked: navigateToSVGDemo()
-            }
-
-            onXChanged: {
-                if (mainScreen.skipAnimationOnce) {
-                    mainScreen.skipAnimationOnce = false
-                }
-            }
-
-            Behavior on x {
-                enabled: !mainScreen.skipAnimationOnce
-                NumberAnimation {
-                    duration: 1000
-                    easing.type: Easing.InOutQuad
-                }
-            }
-            Behavior on y {
-                enabled: !mainScreen.skipAnimationOnce
-                NumberAnimation {
-                    duration: 1000
-                    easing.type: Easing.InOutQuad
-                }
-            }
-            Behavior on opacity {
-                enabled: !mainScreen.skipAnimationOnce
-                NumberAnimation {
-                    duration: 1000
-                    easing.type: Easing.Linear
-                }
-            }
-
-            Text {
-                anchors.centerIn: parent
-                text: "SVG"
-                color: "white"
-                font.family: "Calibri"
-                font.pixelSize: 14
-                font.bold: true
-            }
-        }
-
-        Image {
-            id: textScroll
-            width: 60
-            height: 60
-            source: "images/ui_button.png"
-            transformOrigin: Item.Center
-            opacity: mainScreen.isOpen ? 1 : 0
-
-            x: mainScreen.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset5 : 0)
-            y: mainScreen.height / 2 - height / 2 + (mainScreen.isOpen ? mainScreen.yOffset5 : 0)
-
-            MouseArea {
-                anchors.fill: parent
-                enabled: mainScreen.isOpen
-                onClicked: navigateToTextScroll()
-            }
-
-            onXChanged: {
-                if (mainScreen.skipAnimationOnce) {
-                    mainScreen.skipAnimationOnce = false
-                }
-            }
-
-            Behavior on x {
-                enabled: !mainScreen.skipAnimationOnce
-                NumberAnimation {
-                    duration: 1000
-                    easing.type: Easing.InOutQuad
-                }
-            }
-            Behavior on y {
-                enabled: !mainScreen.skipAnimationOnce
-                NumberAnimation {
-                    duration: 1000
-                    easing.type: Easing.InOutQuad
-                }
-            }
-            Behavior on opacity {
-                enabled: !mainScreen.skipAnimationOnce
-                NumberAnimation {
-                    duration: 1000
-                    easing.type: Easing.Linear
-                }
-            }
-
-            Text {
-                anchors.centerIn: parent
-                text: " Text\nScroll"
-                color: "white"
-                font.family: "Calibri"
-                font.pixelSize: 14
-                font.bold: true
-            }
-        }
-
-        Image {
-            id: motorCluster
-            width: 60
-            height: 60
-            source: "images/ui_button.png"
-            transformOrigin: Item.Center
-            opacity: mainScreen.isOpen ? 1 : 0
-
-            x: mainScreen.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset6 : 0)
-            y: mainScreen.height / 2 - height / 2 + (mainScreen.isOpen ? mainScreen.yOffset6 : 0)
-
-            MouseArea {
-                anchors.fill: parent
-                enabled: mainScreen.isOpen
-                onClicked: navigateToMotorCluster()
-            }
-
-            onXChanged: {
-                if (mainScreen.skipAnimationOnce) {
-                    mainScreen.skipAnimationOnce = false
-                }
-            }
-
-            Behavior on x {
-                enabled: !mainScreen.skipAnimationOnce
-                NumberAnimation {
-                    duration: 1000
-                    easing.type: Easing.InOutQuad
-                }
-            }
-            Behavior on y {
-                enabled: !mainScreen.skipAnimationOnce
-                NumberAnimation {
-                    duration: 1000
-                    easing.type: Easing.InOutQuad
-                }
-            }
-            Behavior on opacity {
-                enabled: !mainScreen.skipAnimationOnce
-                NumberAnimation {
-                    duration: 1000
-                    easing.type: Easing.Linear
-                }
-            }
-
-            Text {
-                anchors.centerIn: parent
-                text: "Cluster"
-                color: "white"
-                font.family: "Calibri"
-                font.pixelSize: 14
-                font.bold: true
-            }
-        }
-
-        Image {
-            id: closebutton
-            width: 60
-            height: 60
-            source: "images/ui_button.png"
-            transformOrigin: Item.Center
-            opacity: mainScreen.isOpen ? 1 : 0
-
-            x: mainScreen.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset0 : 0)
-            y: mainScreen.height / 2 - height / 2 + (mainScreen.isOpen ? mainScreen.yOffset0 : 0)
-
-            MouseArea {
-                anchors.fill: parent
-                enabled: mainScreen.isOpen
-                onClicked: mainScreen.isOpen = false
-            }
-
-            onXChanged: {
-                if (mainScreen.skipAnimationOnce) {
-                    mainScreen.skipAnimationOnce = false
-                }
-            }
-
-            Behavior on x {
-                enabled: !mainScreen.skipAnimationOnce
-                NumberAnimation {
-                    duration: 1000
-                    easing.type: Easing.InOutQuad
-                }
-            }
-            Behavior on y {
-                enabled: !mainScreen.skipAnimationOnce
-                NumberAnimation {
-                    duration: 1000
-                    easing.type: Easing.InOutQuad
-                }
-            }
-            Behavior on opacity {
-                enabled: !mainScreen.skipAnimationOnce
-                NumberAnimation {
-                    duration: 1000
-                    easing.type: Easing.Linear
-                }
             }
 
             Image {
                 id: cancel
-                width: 45
-                height: 45
-                visible: true
                 anchors.centerIn: parent
                 source: "images/cancel.png"
-
+                visible: index === MainScreen.ScreenIndex.MainscreenButton
             }
         }
+    }
+
+    Image {
+        id: startButton
+        anchors.centerIn: parent
+        source: "images/ui_button_center.png"
+
+        Text {
+            anchors.centerIn: parent
+            text: "START"
+            color: "white"
+            font.family: "Calibri"
+            font.pixelSize: 44
+            visible: !mainScreen.isOpen
+            font.bold: true
+        }
+
+        MouseArea {
+            anchors.fill: startButton
+            onClicked: mainScreen.isOpen = true
+        }
+    }
+
+    Repeater {
+        model: 7
+        delegate: buttonComponent
     }
 }

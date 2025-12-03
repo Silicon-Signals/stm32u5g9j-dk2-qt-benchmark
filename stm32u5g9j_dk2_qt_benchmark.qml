@@ -1,12 +1,13 @@
 import QtQuick
 
 Rectangle {
+    id: root
     width: 800
     height: 480
 
     property StatusProvider setStatus
 
-    property int currentScreen: 0
+    property int currentScreen: MainScreen.ScreenIndex.MainscreenButton
     property int demoName: 1
     property int tempfpsAvg: 0
     property int tempstackusageAvg: 0
@@ -21,7 +22,6 @@ Rectangle {
     property int tickTimeAvg: 0
     property bool openMenuOnReturn: false
 
-
     Text {
         id: demo
         x: 415
@@ -31,16 +31,29 @@ Rectangle {
         font.pixelSize: 18
         color: "white"
         font.bold: true
-        visible: currentScreen == 7
-        text: {
-            if (demoName == 1)       "Video Test";
-            else if (demoName == 2)  "2D Test";
-            else if (demoName == 3)  "Static Test";
-            else if (demoName == 4)  "SVG Test";
-            else if (demoName == 5)  "Text Scroll Test";
-            else if (demoName == 6)  "Cluster Test";
-            else                     "";
-        }
+        visible: currentScreen === MainScreen.ScreenIndex.ResultScreen
+        text:switch (demoName) {
+             case MainScreen.ScreenIndex.VideoTest:
+                 "Video Test";
+                 break;
+             case MainScreen.ScreenIndex.Test2D:
+                 "2D Test";
+                 break;
+             case MainScreen.ScreenIndex.StaticImage:
+                 "Static Test";
+                 break;
+             case MainScreen.ScreenIndex.SVGDemo:
+                 "SVG Test";
+                 break;
+             case MainScreen.ScreenIndex.TextScroll:
+                 "Text Scroll Test";
+                 break;
+             case MainScreen.ScreenIndex.MotorCluster:
+                 "Cluster Test";
+                 break;
+             default:
+                 "";
+             }
     }
 
     Text {
@@ -52,7 +65,7 @@ Rectangle {
         font.family: "Calibri"
         font.pixelSize: 18
         color: "white"
-        visible: currentScreen == 7
+        visible: currentScreen === MainScreen.ScreenIndex.ResultScreen
     }
 
     Text {
@@ -64,7 +77,7 @@ Rectangle {
         font.family: "Calibri"
         font.pixelSize: 18
         color: "white"
-        visible: currentScreen == 7
+        visible: currentScreen === MainScreen.ScreenIndex.ResultScreen
     }
 
     Text {
@@ -76,7 +89,7 @@ Rectangle {
         font.family: "Calibri"
         font.pixelSize: 18
         color: "white"
-        visible: currentScreen == 7
+        visible: currentScreen === MainScreen.ScreenIndex.ResultScreen
     }
 
     Text {
@@ -88,7 +101,7 @@ Rectangle {
         font.family: "Calibri"
         font.pixelSize: 18
         color: "white"
-        visible: currentScreen == 7
+        visible: currentScreen === MainScreen.ScreenIndex.ResultScreen
     }
 
     Text {
@@ -100,7 +113,7 @@ Rectangle {
         font.family: "Calibri"
         font.pixelSize: 18
         color: "white"
-        visible: currentScreen == 7
+        visible: currentScreen === MainScreen.ScreenIndex.ResultScreen
     }
 
     Rectangle {
@@ -169,22 +182,29 @@ Rectangle {
         anchors.fill: parent
         z: 1
         sourceComponent: {
-            if (currentScreen == 0) {
-                mainScreen;
-            } else if (currentScreen == 1) {
-                videoTest;
-            } else if (currentScreen == 2) {
-                test2D;
-            } else if (currentScreen == 3) {
-                staticimage;
-            } else if (currentScreen == 4) {
-                svgDemo;
-            } else if (currentScreen == 5) {
-                textScroll;
-            } else if (currentScreen == 6) {
-                motorCluster;
-            } else if (currentScreen == 7) {
-                resultScreen;
+            switch (currentScreen) {
+            case MainScreen.ScreenIndex.VideoTest:
+                demoName = 1;
+                return videoTest;
+            case MainScreen.ScreenIndex.Test2D:
+                demoName = 2;
+                return test2D;
+            case MainScreen.ScreenIndex.StaticImage:
+                demoName = 3;
+                return staticimage;
+            case MainScreen.ScreenIndex.SVGDemo:
+                demoName = 4;
+                return svgDemo;
+            case MainScreen.ScreenIndex.TextScroll:
+                demoName = 5;
+                return textScroll;
+            case MainScreen.ScreenIndex.ResultScreen:
+                return resultScreen;
+            case MainScreen.ScreenIndex.MotorCluster:
+                demoName = 6;
+                return motorCluster;
+            default:
+                return mainScreen;
             }
         }
     }
@@ -204,42 +224,13 @@ Rectangle {
         tempredertimeAvg = 0;
         tempcpuloadAvg = 0;
 
-        currentScreen = 7;
-    }
+        openMenuOnReturn = true;
 
-    function goToMotorCluster() {
-        demoName = 6;
-        currentScreen = 6;
-    }
-
-    function goToTextScroll() {
-        demoName = 5;
-        currentScreen = 5;
-    }
-
-    function goToSVGDemo() {
-        demoName = 4;
-        currentScreen = 4;
-    }
-
-    function goToStaticImage() {
-        demoName = 3;
-        currentScreen = 3;
-    }
-
-    function goToTest2D() {
-        demoName = 2;
-        currentScreen = 2;
-    }
-
-    function goToVideoTest() {
-        demoName = 1;
-        currentScreen = 1;
+        currentScreen = MainScreen.ScreenIndex.ResultScreen;
     }
 
     function goToMainScreen() {
-        openMenuOnReturn = true;
-        currentScreen = 0;
+        currentScreen = MainScreen.ScreenIndex.MainscreenButton;
     }
 
     Component {
@@ -249,18 +240,15 @@ Rectangle {
 
             Component.onCompleted: {
                 if (openMenuOnReturn) {
-                    mainScreenInstance.skipAnimationOnce = true;
+                    mainScreenInstance.forceOpen = true;
                     mainScreenInstance.isOpen = true;
                     openMenuOnReturn = false;
                 }
             }
 
-            onNavigateToVideoTest: goToVideoTest()
-            onNavigateToTest2D: goToTest2D()
-            onNavigateToStaticImage: goToStaticImage()
-            onNavigateToSVGDemo: goToSVGDemo()
-            onNavigateToTextScroll: goToTextScroll()
-            onNavigateToMotorCluster: goToMotorCluster()
+            onNavigateTo: {
+                currentScreen = index;
+            }
         }
     }
 
