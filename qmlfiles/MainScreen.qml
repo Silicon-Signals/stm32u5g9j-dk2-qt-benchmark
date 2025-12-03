@@ -39,7 +39,7 @@ Item {
     Image {
         id: backGround
         source: "images/ui_bg.png"
-        fillMode: Image.PreserveAspectFit
+
 
         Image {
             id: startButton
@@ -47,7 +47,7 @@ Item {
             width: 190
             height: 188
             source: "images/ui_button_center.png"
-            fillMode: Image.PreserveAspectFit
+
             transformOrigin: Item.Center
 
             Text {
@@ -71,7 +71,7 @@ Item {
             width: 60
             height: 60
             source: "images/ui_button.png"
-            fillMode: Image.PreserveAspectFit
+
             opacity: mainScreen.isOpen ? 1 : 0
 
             x: parent.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset1 : 0)
@@ -117,7 +117,7 @@ Item {
             width: 60
             height: 60
             source: "images/ui_button.png"
-            fillMode: Image.PreserveAspectFit
+
             opacity: mainScreen.isOpen ? 1 : 0
 
             x: parent.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset2 : 0)
@@ -163,7 +163,7 @@ Item {
             width: 60
             height: 60
             source: "images/ui_button.png"
-            fillMode: Image.PreserveAspectFit
+
             opacity: mainScreen.isOpen ? 1 : 0
 
             x: parent.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset3 : 0)
@@ -209,7 +209,7 @@ Item {
             width: 60
             height: 60
             source: "images/ui_button.png"
-            fillMode: Image.PreserveAspectFit
+
             opacity: mainScreen.isOpen ? 1 : 0
 
             x: parent.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset4 : 0)
@@ -255,7 +255,7 @@ Item {
             width: 60
             height: 60
             source: "images/ui_button.png"
-            fillMode: Image.PreserveAspectFit
+
             opacity: mainScreen.isOpen ? 1 : 0
 
             x: parent.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset5 : 0)
@@ -301,7 +301,7 @@ Item {
             width: 60
             height: 60
             source: "images/ui_button.png"
-            fillMode: Image.PreserveAspectFit
+
             opacity: mainScreen.isOpen ? 1 : 0
 
             x: parent.width / 2 - width / 2 + (mainScreen.isOpen ? mainScreen.xOffset0 : 0)
@@ -339,7 +339,7 @@ Item {
                 visible: true
                 anchors.centerIn: parent
                 source: "images/cancel.png"
-                fillMode: Image.PreserveAspectFit
+
             }
         }
     }

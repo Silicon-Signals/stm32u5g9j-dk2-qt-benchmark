@@ -10,7 +10,7 @@ Item {
     Image {
         id: resultBG
         source: "images/result_bg.png"
-        fillMode: Image.PreserveAspectFit
+        
 
         Image {
             id: homeButton
@@ -19,7 +19,7 @@ Item {
             width: 63
             height: 65
             source: "images/result_home_button.png"
-            fillMode: Image.PreserveAspectFit
+            
 
             MouseArea {
                 anchors.fill: parent

@@ -39,7 +39,7 @@ Item {
                 width: 125
                 height: 125
                 source: preload.source
-                fillMode: Image.PreserveAspectFit
+
                 x: modelData.x
                 y: modelData.y
 
@@ -74,7 +74,7 @@ Item {
                 width: 125
                 height: 125
                 source: preload.source
-                fillMode: Image.PreserveAspectFit
+
 
                 x: modelData.baseX
                 y: modelData.baseY
