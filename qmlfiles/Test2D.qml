@@ -4,8 +4,6 @@ Item {
     id: test2d
     width: 800
     height: 480
-    x: 0
-    y: 0
 
     signal showResultScreen
 
@@ -41,7 +39,7 @@ Item {
                 width: 125
                 height: 125
                 source: preload.source
-                fillMode: Image.PreserveAspectFit
+
                 x: modelData.x
                 y: modelData.y
 
@@ -76,7 +74,6 @@ Item {
                 width: 125
                 height: 125
                 source: preload.source
-                fillMode: Image.PreserveAspectFit
 
                 x: modelData.baseX
                 y: modelData.baseY

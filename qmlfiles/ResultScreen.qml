@@ -4,15 +4,12 @@ Item {
     id: resultScreen
     width: 800
     height: 480
-    x: 0
-    y: 0
 
     signal backToMain
 
     Image {
         id: resultBG
         source: "images/result_bg.png"
-        fillMode: Image.PreserveAspectFit
 
         Image {
             id: homeButton
@@ -21,7 +18,6 @@ Item {
             width: 63
             height: 65
             source: "images/result_home_button.png"
-            fillMode: Image.PreserveAspectFit
 
             MouseArea {
                 anchors.fill: parent

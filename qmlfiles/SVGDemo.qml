@@ -4,8 +4,6 @@ Item {
     id: svgDemo
     width: 800
     height: 480
-    x: 0
-    y: 0
 
     signal showResultScreen
 
@@ -28,7 +26,6 @@ Item {
             width: 433
             height: 115
             source: "images/Car Body.svg"
-            fillMode: Image.PreserveAspectFit
         }
 
         Image {
@@ -38,7 +35,6 @@ Item {
             width: 368
             height: 85
             source: "images/tire_pair1.svg"
-            fillMode: Image.PreserveAspectFit
             visible: false
         }
 
@@ -49,7 +45,6 @@ Item {
             width: 368
             height: 85
             source: "images/tire_pair2.svg"
-            fillMode: Image.PreserveAspectFit
             visible: false
         }
 
@@ -60,7 +55,6 @@ Item {
             width: 368
             height: 85
             source: "images/tire_pair3.svg"
-            fillMode: Image.PreserveAspectFit
             visible: true
         }
 
@@ -71,7 +65,6 @@ Item {
             width: 368
             height: 85
             source: "images/tire_pair4.svg"
-            fillMode: Image.PreserveAspectFit
             visible: false
         }
 
@@ -82,7 +75,6 @@ Item {
             width: 368
             height: 85
             source: "images/tire_pair5.svg"
-            fillMode: Image.PreserveAspectFit
             visible: false
         }
 
@@ -94,7 +86,6 @@ Item {
             width: 629
             height: 241
             source: "images/Ellipse.svg"
-            fillMode: Image.PreserveAspectFit
         }
 
         Image {
@@ -104,7 +95,6 @@ Item {
             width: 65
             height: 65
             source: "images/Tire1.svg"
-            fillMode: Image.PreserveAspectFit
         }
 
         Image {
@@ -114,7 +104,6 @@ Item {
             width: 65
             height: 65
             source: "images/Tire2.svg"
-            fillMode: Image.PreserveAspectFit
         }
 
         Image {
@@ -124,7 +113,6 @@ Item {
             width: 65
             height: 65
             source: "images/Tire3.svg"
-            fillMode: Image.PreserveAspectFit
         }
 
         Image {
@@ -134,7 +122,6 @@ Item {
             width: 65
             height: 65
             source: "images/Tire4.svg"
-            fillMode: Image.PreserveAspectFit
         }
 
         Image {
@@ -144,7 +131,6 @@ Item {
             width: 65
             height: 65
             source: "images/Tire5.svg"
-            fillMode: Image.PreserveAspectFit
         }
     }
 

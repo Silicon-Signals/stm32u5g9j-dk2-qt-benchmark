@@ -4,8 +4,6 @@ Item {
     id: staticimage
     width: 800
     height: 480
-    x: 0
-    y: 0
 
     signal showResultScreen
 

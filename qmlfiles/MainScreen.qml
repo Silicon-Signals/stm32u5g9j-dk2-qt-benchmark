@@ -4,8 +4,6 @@ Item {
     id: mainScreen
     width: 800
     height: 480
-    x: 0
-    y: 0
 
     signal navigateToVideoTest
     signal navigateToTest2D
@@ -50,7 +48,6 @@ Item {
         x: 0
         y: 0
         source: "images/ui_bg.png"
-        fillMode: Image.PreserveAspectFit
 
         Image {
             id: startButton
@@ -58,7 +55,6 @@ Item {
             width: 190
             height: 188
             source: "images/ui_button_center.png"
-            fillMode: Image.PreserveAspectFit
             transformOrigin: Item.Center
 
             Text {
@@ -82,7 +78,6 @@ Item {
             width: 60
             height: 60
             source: "images/ui_button.png"
-            fillMode: Image.PreserveAspectFit
             transformOrigin: Item.Center
             opacity: mainScreen.isOpen ? 1 : 0
 
@@ -138,7 +133,6 @@ Item {
             width: 60
             height: 60
             source: "images/ui_button.png"
-            fillMode: Image.PreserveAspectFit
             transformOrigin: Item.Center
             opacity: mainScreen.isOpen ? 1 : 0
 
@@ -194,7 +188,6 @@ Item {
             width: 60
             height: 60
             source: "images/ui_button.png"
-            fillMode: Image.PreserveAspectFit
             transformOrigin: Item.Center
             opacity: mainScreen.isOpen ? 1 : 0
 
@@ -250,7 +243,6 @@ Item {
             width: 60
             height: 60
             source: "images/ui_button.png"
-            fillMode: Image.PreserveAspectFit
             transformOrigin: Item.Center
             opacity: mainScreen.isOpen ? 1 : 0
 
@@ -306,7 +298,6 @@ Item {
             width: 60
             height: 60
             source: "images/ui_button.png"
-            fillMode: Image.PreserveAspectFit
             transformOrigin: Item.Center
             opacity: mainScreen.isOpen ? 1 : 0
 
@@ -362,7 +353,6 @@ Item {
             width: 60
             height: 60
             source: "images/ui_button.png"
-            fillMode: Image.PreserveAspectFit
             transformOrigin: Item.Center
             opacity: mainScreen.isOpen ? 1 : 0
 
@@ -418,7 +408,6 @@ Item {
             width: 60
             height: 60
             source: "images/ui_button.png"
-            fillMode: Image.PreserveAspectFit
             transformOrigin: Item.Center
             opacity: mainScreen.isOpen ? 1 : 0
 
@@ -466,7 +455,7 @@ Item {
                 visible: true
                 anchors.centerIn: parent
                 source: "images/cancel.png"
-                fillMode: Image.PreserveAspectFit
+
             }
         }
     }
