@@ -43,13 +43,13 @@ Project {
 
     QmlFiles {
         files: [
-            "qmlfiles/MainScreen.qml",
-            "qmlfiles/VideoTest.qml",
-            "qmlfiles/Test2D.qml",
-            "qmlfiles/StaticImage.qml",
-            "qmlfiles/SVGDemo.qml",
-            "qmlfiles/TextScroll.qml",
-            "qmlfiles/ResultScreen.qml"
+            "MainScreen.qml",
+            "VideoTest.qml",
+            "Test2D.qml",
+            "StaticImage.qml",
+            "SVGDemo.qml",
+            "TextScroll.qml",
+            "ResultScreen.qml"
         ]
     }
 
