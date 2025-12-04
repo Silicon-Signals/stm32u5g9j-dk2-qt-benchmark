@@ -44,6 +44,7 @@ Project {
     QmlFiles {
         files: [
             "MainScreen.qml",
+            "MotorCluster.qml",
             "VideoTest.qml",
             "Test2D.qml",
             "StaticImage.qml",
@@ -59,6 +60,16 @@ Project {
     // https://doc.qt.io/QtForMCUs/qtul-qmlproject-imagefilesnode-directory.html
     ImageFiles {
         directory: "frames"
+        MCU.resourceAnimatedSprite: true
+    }
+
+    ImageFiles {
+        directory: "left_speedometer_mask_frames"
+        MCU.resourceAnimatedSprite: true
+    }
+
+    ImageFiles {
+        directory: "right_speedometer_mask_frames"
         MCU.resourceAnimatedSprite: true
     }
 
@@ -87,9 +98,40 @@ Project {
         ]
     }
 
+    ImageFiles {
+        files: [
+            "images/cluster_bg.png",
+            "images/cluster_left_c.png",
+            "images/cluster_right_c.png",
+            "images/dipper.png",
+            "images/dipper_colored.png",
+            "images/engine.png",
+            "images/engine_colored.png",
+            "images/left_indicator.png",
+            "images/left_indicator_colored.png",
+            "images/right_indicator.png",
+            "images/right_indicator_colored.png",
+            "images/service.png",
+            "images/service_colored.png",
+            "images/battery.png",
+            "images/battery_colored.png",
+            "images/battery_notifictation.png",
+            "images/fuel_indicator.png",
+            "images/fuel_indicator_colored.png",
+            "images/fuel_full.png",
+            "images/fuel_80.png",
+            "images/fuel_50.png",
+            "images/fuel_low.png",
+            "images/battery_full.png",
+            "images/battery_half.png",
+            "images/battery_low.png"
+        ]
+    }
+
     FontFiles {
         files: [
-            "fonts/Calibri.ttf"
+            "fonts/Calibri.ttf",
+            "fonts/Digital7Italic.ttf"
         ]
     }
 

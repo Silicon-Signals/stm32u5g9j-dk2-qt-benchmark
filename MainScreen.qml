@@ -12,6 +12,7 @@ Image {
         StaticImage,
         SVGDemo,
         TextScroll,
+        Cluster,
         Main,
         ResultScreen
     }
@@ -32,9 +33,9 @@ Image {
         Image {
             id: button
 
-            readonly property real radius: 150     // Distance from center when open
-            readonly property real angleStep: 60   // 360° / 6 buttons = 60°
-            readonly property real startAngle: 150 // Start exactly BELOW center button
+            readonly property real radius: 170     // Distance from center when open
+            readonly property real angleStep: (360 / 7)
+            readonly property real startAngle: 90 + angleStep
 
             readonly property real xOffset: Math.cos((startAngle + index * angleStep) * Math.PI / 180) * radius
             readonly property real yOffset: Math.sin((startAngle + index * angleStep) * Math.PI / 180) * radius
@@ -90,6 +91,9 @@ Image {
                 case MainScreen.ScreenIndex.TextScroll:
                     "Text\nScroll";
                     break;
+                case MainScreen.ScreenIndex.Cluster:
+                    "Cluster";
+                    break;
                 default:
                     "";
                 }
@@ -136,7 +140,7 @@ Image {
     }
 
     Repeater {
-        model: 6
+        model: 7
         delegate: buttonComponent
     }
 }

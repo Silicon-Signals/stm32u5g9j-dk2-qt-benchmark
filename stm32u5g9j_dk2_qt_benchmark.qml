@@ -28,6 +28,9 @@ Rectangle {
             case MainScreen.ScreenIndex.TextScroll:
                 QulPerf.recording = true;
                 return textScroll;
+            case MainScreen.ScreenIndex.Cluster:
+                QulPerf.recording = true;
+                return motorCluster;
             case MainScreen.ScreenIndex.ResultScreen:
                 QulPerf.recording = false;
                 return resultScreen;
@@ -92,6 +95,14 @@ Rectangle {
         id: textScroll
         TextScroll {
             id: textscrollInstance
+            onShowResultScreen: goToResultScreen()
+        }
+    }
+
+    Component {
+        id: motorCluster
+        MotorCluster {
+            id: motorclusterInstance
             onShowResultScreen: goToResultScreen()
         }
     }
