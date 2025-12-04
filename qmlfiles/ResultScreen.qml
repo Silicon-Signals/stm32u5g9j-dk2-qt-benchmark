@@ -5,26 +5,21 @@ Item {
     width: 800
     height: 480
 
-    signal backToMain()
+    signal backToMain
 
     Image {
         id: resultBG
         source: "images/result_bg.png"
-        
 
         Image {
             id: homeButton
             x: 369
             y: 378
-            width: 63
-            height: 65
             source: "images/result_home_button.png"
-            
 
             MouseArea {
                 anchors.fill: parent
-                onClicked:
-                    backToMain()
+                onClicked: backToMain()
             }
         }
 

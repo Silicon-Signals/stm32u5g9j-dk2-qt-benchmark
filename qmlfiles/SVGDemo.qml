@@ -1,149 +1,110 @@
 import QtQuick
 
-Item {
+Rectangle {
     id: svgDemo
     width: 800
     height: 480
+    color: "#FFFFFF"
 
     signal showResultScreen
 
     property int tiredelay: 700
     property int pairhold: 300
 
-    Rectangle {
-        id: rectangle
-        x: 0
-        y: 0
-        width: 800
-        height: 480
-        color: "#FFFFFF"
+    // Car Body
+    Image {
+        id: carbody
+        x: 183
+        y: 271
+        source: "images/Car Body.svg"
+    }
 
-        // Car Body
-        Image {
-            id: carbody
-            x: 183
-            y: 271
-            width: 433
-            height: 115
-            source: "images/Car Body.svg"
-            
-        }
+    Image {
+        id: tirepair1
+        x: 219
+        y: 314
+        source: "images/tire_pair1.svg"
 
-        Image {
-            id: tirepair1
-            x: 219
-            y: 314
-            width: 368
-            height: 85
-            source: "images/tire_pair1.svg"
-            
-            visible: false
-        }
+        visible: false
+    }
 
-        Image {
-            id: tirepair2
-            x: 219
-            y: 314
-            width: 368
-            height: 85
-            source: "images/tire_pair2.svg"
-            
-            visible: false
-        }
+    Image {
+        id: tirepair2
+        x: 219
+        y: 314
+        source: "images/tire_pair2.svg"
 
-        Image {
-            id: tirepair3
-            x: 219
-            y: 314
-            width: 368
-            height: 85
-            source: "images/tire_pair3.svg"
-            
-            visible: true
-        }
+        visible: false
+    }
 
-        Image {
-            id: tirepair4
-            x: 219
-            y: 314
-            width: 368
-            height: 85
-            source: "images/tire_pair4.svg"
-            
-            visible: false
-        }
+    Image {
+        id: tirepair3
+        x: 219
+        y: 314
+        source: "images/tire_pair3.svg"
 
-        Image {
-            id: tirepair5
-            x: 219
-            y: 314
-            width: 368
-            height: 85
-            source: "images/tire_pair5.svg"
-            
-            visible: false
-        }
+        visible: true
+    }
 
-        // Ellipse
-        Image {
-            id: ellipse
-            x: 87
-            y: -38
-            width: 629
-            height: 241
-            source: "images/Ellipse.svg"
-            
-        }
+    Image {
+        id: tirepair4
+        x: 219
+        y: 314
+        source: "images/tire_pair4.svg"
 
-        Image {
-            id: tire1
-            x: 80
-            y: 16
-            width: 65
-            height: 65
-            source: "images/Tire1.svg"
-            
-        }
+        visible: false
+    }
 
-        Image {
-            id: tire2
-            x: 188
-            y: 127
-            width: 65
-            height: 65
-            source: "images/Tire2.svg"
-            
-        }
+    Image {
+        id: tirepair5
+        x: 219
+        y: 314
+        source: "images/tire_pair5.svg"
 
-        Image {
-            id: tire3
-            x: 367
-            y: 165
-            width: 65
-            height: 65
-            source: "images/Tire3.svg"
-            
-        }
+        visible: false
+    }
 
-        Image {
-            id: tire4
-            x: 546
-            y: 127
-            width: 65
-            height: 65
-            source: "images/Tire4.svg"
-            
-        }
+    // Ellipse
+    Image {
+        id: ellipse
+        x: 87
+        y: -38
+        source: "images/Ellipse.svg"
+    }
 
-        Image {
-            id: tire5
-            x: 659
-            y: 16
-            width: 65
-            height: 65
-            source: "images/Tire5.svg"
-            
-        }
+    Image {
+        id: tire1
+        x: 80
+        y: 16
+        source: "images/Tire1.svg"
+    }
+
+    Image {
+        id: tire2
+        x: 188
+        y: 127
+        source: "images/Tire2.svg"
+    }
+
+    Image {
+        id: tire3
+        x: 367
+        y: 165
+        source: "images/Tire3.svg"
+    }
+
+    Image {
+        id: tire4
+        x: 546
+        y: 127
+        source: "images/Tire4.svg"
+    }
+
+    Image {
+        id: tire5
+        x: 659
+        y: 16
+        source: "images/Tire5.svg"
     }
 
     SequentialAnimation {
