@@ -49,7 +49,6 @@ Project {
             "qmlfiles/StaticImage.qml",
             "qmlfiles/SVGDemo.qml",
             "qmlfiles/TextScroll.qml",
-            "qmlfiles/MyButton.qml",
             "qmlfiles/ResultScreen.qml"
         ]
     }
