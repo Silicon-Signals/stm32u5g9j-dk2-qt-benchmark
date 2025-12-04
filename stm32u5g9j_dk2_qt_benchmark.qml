@@ -115,5 +115,39 @@ Rectangle {
         }
     }
 
+    Rectangle {
+        id: matrices
+        x: 690
+        y: 450
+        width: 110
+        height: 30
+        color: "black"
+
+        Text {
+            x: 695 - 690
+            text: QulPerf.fps.toFixed() + " FPS, "
+            color: "white"
+            font.family: "Calibri"
+            font.pixelSize: 15
+        }
+
+        Text {
+            x: 740 - 690
+            text: QulPerf.currentCpuLoad.toFixed() + " %CPU"
+            color: "white"
+            font.family: "Calibri"
+            font.pixelSize: 15
+        }
+
+        Text {
+            x: 695 - 690
+            y: 461 - 450
+            text: QulPerf.repaint.toFixed() + " ms"
+            color: "white"
+            font.family: "Calibri"
+            font.pixelSize: 15
+        }
+    }
+
     // Component.onCompleted: console.log(QulPerf.enabled ? "QUL_ENABLE_PERFORMANCE_LOGGING is ON" : "QUL_ENABLE_PERFORMANCE_LOGGING is OFF")
 }
