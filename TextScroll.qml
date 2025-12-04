@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuickUltralite.Extras
 
 Rectangle {
     id: textScroll
@@ -19,7 +20,7 @@ Rectangle {
             id: contentColumn
             width: parent.width
 
-            Text {
+            StaticText {
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.pixelSize: 44
                 font.family: "Calibri"
@@ -29,10 +30,10 @@ Rectangle {
             }
 
             // simple syntax for multiline text
-            Text {
+            StaticText {
                 width: parent.width
                 font.pixelSize: 25
-                text: `
+                text: '
           The STM32U5G9J-DK2 Discovery kit is a complete demonstration and
 development platform for the STM32U5G9ZJT6Q microcontroller, featuring
 an Arm® Cortex®-M33 core with Arm® TrustZone®.
@@ -79,9 +80,8 @@ settings are 115200 8N1.
 corresponding to the on-board microcontroller, is preloaded in the STM32
 flash memory for easy demonstration of the device peripherals in standalone
 mode. The latest versions of the demonstration source code and associated
-documentation can be downloaded from www.st.com.`
+documentation can be downloaded from www.st.com.'
                 font.family: "Calibri"
-                wrapMode: Text.WordWrap  // Enable word wrapping for better readability
             }
         }
     }
