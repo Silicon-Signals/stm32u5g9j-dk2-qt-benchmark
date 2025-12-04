@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuickUltralite.Extras
 
 Rectangle {
     id: textScroll
@@ -19,7 +20,7 @@ Rectangle {
             id: contentColumn
             width: parent.width
 
-            Text {
+            StaticText {
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.pixelSize: 44
                 font.family: "Calibri"
@@ -29,7 +30,7 @@ Rectangle {
             }
 
             // simple syntax for multiline text
-            Text {
+            StaticText {
                 width: parent.width
                 font.pixelSize: 25
                 text: '
@@ -81,7 +82,6 @@ flash memory for easy demonstration of the device peripherals in standalone
 mode. The latest versions of the demonstration source code and associated
 documentation can be downloaded from www.st.com.'
                 font.family: "Calibri"
-                wrapMode: Text.WordWrap
             }
         }
     }
