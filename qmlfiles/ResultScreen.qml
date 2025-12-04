@@ -21,7 +21,7 @@ Item {
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: backToMain();
+                onClicked: backToMain()
             }
         }
 
