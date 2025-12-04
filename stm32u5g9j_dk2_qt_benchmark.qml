@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuickUltralite.Extras
 
 Rectangle {
     id: root
@@ -13,18 +14,25 @@ Rectangle {
         sourceComponent: {
             switch (currentScreen) {
             case MainScreen.ScreenIndex.VideoTest:
+                QulPerf.recording = true;
                 return videoTest;
             case MainScreen.ScreenIndex.Test2D:
+                QulPerf.recording = true;
                 return test2D;
             case MainScreen.ScreenIndex.StaticImage:
+                QulPerf.recording = true;
                 return staticimage;
             case MainScreen.ScreenIndex.SVGDemo:
+                QulPerf.recording = true;
                 return svgDemo;
             case MainScreen.ScreenIndex.TextScroll:
+                QulPerf.recording = true;
                 return textScroll;
             case MainScreen.ScreenIndex.ResultScreen:
+                QulPerf.recording = false;
                 return resultScreen;
             default:
+                QulPerf.recording = false;
                 return mainScreen;
             }
         }
@@ -95,4 +103,6 @@ Rectangle {
             onBackToMain: goToMainScreen()
         }
     }
+
+    // Component.onCompleted: console.log(QulPerf.enabled ? "QUL_ENABLE_PERFORMANCE_LOGGING is ON" : "QUL_ENABLE_PERFORMANCE_LOGGING is OFF")
 }

@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuickUltralite.Extras
 
 Item {
     id: resultScreen
@@ -82,6 +83,67 @@ Item {
             font.family: "Calibri"
             font.pixelSize: 18
             color: "white"
+        }
+
+        Text {
+            id: text7
+            x: 416
+            y: 154
+            color: "#ffffff"
+            text: "Result"
+            font.pixelSize: 18
+            font.family: "Calibri"
+            font.bold: true
+        }
+
+        Text {
+            id: text8
+            x: 416
+            y: 190
+            color: "#ffffff"
+            text: QulPerf.averageFps
+            font.pixelSize: 18
+            font.family: "Calibri"
+        }
+
+        Text {
+            id: text9
+            x: 416
+            y: 226
+            color: "#ffffff"
+            text: QulPerf.maxStackUsage
+            font.pixelSize: 18
+            font.family: "Calibri"
+        }
+
+        Text {
+            id: text10
+            x: 416
+            y: 262
+            color: "#ffffff"
+            text: QulPerf.maxHeapUsage
+            font.pixelSize: 18
+            font.family: "Calibri"
+        }
+
+        Text {
+            id: text11
+            x: 416
+            y: 298
+            color: "#ffffff"
+            text: QulPerf.repaint
+            font.pixelSize: 18
+            font.family: "Calibri"
+        }
+
+        Text {
+            id: text12
+            x: 416
+            y: 334
+            color: "#ffffff"
+            text: QulPerf.averageCpuLoad
+            font.pixelSize: 18
+            font.family: "Calibri"
         }
     }
 }
