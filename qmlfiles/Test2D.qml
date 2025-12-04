@@ -9,12 +9,6 @@ Item {
 
     property int delay: 1000
 
-    Image {
-        id: preload
-        source: "images/siliconsignals.png"
-        visible: false
-    }
-
     Rectangle {
         anchors.fill: parent
         color: "#12294B"
@@ -38,7 +32,7 @@ Item {
             Image {
                 width: 125
                 height: 125
-                source: preload.source
+                source: "images/siliconsignals.png"
 
                 x: modelData.x
                 y: modelData.y
@@ -73,7 +67,7 @@ Item {
                 id: mover
                 width: 125
                 height: 125
-                source: preload.source
+                source: "images/siliconsignals.png"
 
                 x: modelData.baseX
                 y: modelData.baseY
