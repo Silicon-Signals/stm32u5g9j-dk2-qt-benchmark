@@ -2,4 +2,5 @@
 /build/
 CMakeLists.txt.user
 *.qmlproject.qtds
+*.qmlproject.*
 .qtcreator
