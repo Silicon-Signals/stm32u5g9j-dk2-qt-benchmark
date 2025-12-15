@@ -29,7 +29,6 @@ Rectangle {
                 font.bold: true
             }
 
-            // simple syntax for multiline text
             StaticText {
                 width: parent.width
                 font.pixelSize: 25

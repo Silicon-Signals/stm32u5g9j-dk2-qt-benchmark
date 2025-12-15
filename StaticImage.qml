@@ -7,10 +7,11 @@ Item {
 
     signal showResultScreen
 
-    property int colorIndex: 0
-    property string squareColor: "#FF0000"
-    property string circleColor: "#00FF00"
-    property string rectangleColor: "#0000FF"
+    property int color_index: 0
+    property int tickCounter: 0
+    property string square_color: "#FF0000"
+    property string circle_color: "#00FF00"
+    property string rectangle_color: "#0000FF"
 
     Rectangle {
         width: 800
@@ -23,17 +24,17 @@ Item {
             y: 52
             width: 150
             height: 150
-            color: squareColor
+            color: square_color
         }
 
         Rectangle {
-            id: alphaSquare
+            id: alpha_square
             x: 482
             y: 292
             opacity: 0.5
             width: 150
             height: 150
-            color: squareColor
+            color: square_color
         }
 
         Rectangle {
@@ -42,7 +43,7 @@ Item {
             y: 77
             width: 200
             height: 100
-            color: rectangleColor
+            color: rectangle_color
             radius: 20
         }
 
@@ -52,18 +53,18 @@ Item {
             y: 277
             width: 150
             height: 150
-            color: circleColor
+            color: circle_color
             radius: 100
         }
 
         Rectangle {
-            id: alphaCircle
+            id: alpha_circle
             x: 557
             y: 217
             opacity: 0.5
             width: 150
             height: 150
-            color: circleColor
+            color: circle_color
             radius: 100
         }
     }
@@ -74,36 +75,31 @@ Item {
         running: true
         repeat: true
         onTriggered: {
-            colorIndex = (colorIndex + 1) % 3
+            tickCounter++;
+            color_index = (color_index + 1) % 3
 
-            switch (colorIndex) {
+            switch (color_index) {
             case 0:
-                squareColor = "#FF0000"
-                circleColor = "#00FF00"
-                rectangleColor = "#0000FF"
-                break
+                square_color = "#FF0000";
+                circle_color = "#00FF00";
+                rectangle_color = "#0000FF";
+                break;
             case 1:
-                squareColor = "#00FF00"
-                circleColor = "#0000FF"
-                rectangleColor = "#FF0000"
-                break
+                square_color = "#00FF00";
+                circle_color = "#0000FF";
+                rectangle_color = "#FF0000";
+                break;
             case 2:
-                squareColor = "#0000FF"
-                circleColor = "#FF0000"
-                rectangleColor = "#00FF00"
-                break
+                square_color = "#0000FF";
+                circle_color = "#FF0000";
+                rectangle_color = "#00FF00";
+                break;
             }
-        }
-    }
 
-    Timer {
-        id: stopTimer
-        interval: 10000
-        running: true
-        repeat: false
-        onTriggered: {
-            frameTimer.running = false;
-            showResultScreen();
+            if (tickCounter == 50) {
+                frameTimer.running = false;
+                showResultScreen();
+            }
         }
     }
 }

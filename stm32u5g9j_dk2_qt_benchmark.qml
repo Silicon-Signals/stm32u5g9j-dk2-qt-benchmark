@@ -121,7 +121,8 @@ Rectangle {
         x: 690
         y: 450
         z: 10
-        width: 110; height: 30
+        width: 110
+        height: 30
         color: "black"
         opacity: 0.4
     }
@@ -242,6 +243,7 @@ Rectangle {
                 if (openMenuOnReturn) {
                     mainScreenInstance.forceOpen = true;
                     mainScreenInstance.isOpen = true;
+                    mainScreenInstance.tickCounter = false;
                     openMenuOnReturn = false;
                 }
             }

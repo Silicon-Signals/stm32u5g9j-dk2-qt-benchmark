@@ -60,19 +60,19 @@ Project {
             "images/ui_button.png",
             "images/ui_button_center.png",
             "images/cancel.png",
-            "images/siliconsignals.png",
-            "images/Car Body.svg",
+            "images/siliconsignals_logo.png",
+            "images/car_body.svg",
             "images/tire_pair1.svg",
             "images/tire_pair2.svg",
             "images/tire_pair3.svg",
             "images/tire_pair4.svg",
             "images/tire_pair5.svg",
-            "images/Ellipse.svg",
-            "images/Tire1.svg",
-            "images/Tire2.svg",
-            "images/Tire3.svg",
-            "images/Tire4.svg",
-            "images/Tire5.svg"
+            "images/ellipse.svg",
+            "images/tire1.svg",
+            "images/tire2.svg",
+            "images/tire3.svg",
+            "images/tire4.svg",
+            "images/tire5.svg"
         ]
     }
 

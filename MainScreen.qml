@@ -19,16 +19,12 @@ Image {
 
     property bool isOpen: false
     property bool forceOpen : false
-
-    onIsOpenChanged: {
-        if (isOpen) {
-            forceOpen = false;
-        }
-    }
+    property bool tickCounter : true
 
     function handleClick(index: int) {
         if (index === MainScreen.ScreenIndex.MainscreenButton) {
             isOpen = false;
+            frameTimer.running = true;
         } else {
             navigateTo(index);
         }
@@ -57,24 +53,30 @@ Image {
             MouseArea {
                 anchors.fill: parent
                 enabled: isOpen
-                onClicked: handleClick(index)
+                onClicked: {
+                    if (forceOpen) {
+                        forceOpen = false;
+                    }
+
+                    handleClick(index);
+                }
             }
 
             Behavior on x {
                 NumberAnimation {
-                    duration: forceOpen ? 1 : 1000
+                    duration: forceOpen ? 1 : 800
                     easing.type: Easing.InOutQuad
                 }
             }
             Behavior on y {
                 NumberAnimation {
-                    duration: forceOpen ? 1 : 1000
+                    duration: forceOpen ? 1 : 800
                     easing.type: Easing.InOutQuad
                 }
             }
             Behavior on opacity {
                 NumberAnimation {
-                    duration: forceOpen ? 1 : 1000
+                    duration: forceOpen ? 1 : 800
                     easing.type: Easing.Linear
                 }
             }
@@ -123,6 +125,8 @@ Image {
         id: startButton
         anchors.centerIn: parent
         source: "images/ui_button_center.png"
+        width: 190
+        height: 188
 
         Text {
             anchors.centerIn: parent
@@ -130,18 +134,37 @@ Image {
             color: "white"
             font.family: "Calibri"
             font.pixelSize: 44
-            visible: !mainScreen.isOpen
+            visible: ((mainScreen.isOpen === false) && tickCounter)
             font.bold: true
         }
 
         MouseArea {
             anchors.fill: startButton
-            onClicked: mainScreen.isOpen = true
+            onClicked: {
+                var dx = mouse.x - width / 2
+                var dy = mouse.y - height / 2
+                var r  = width / 2
+
+                if (dx*dx + dy*dy <= r*r) {
+                    frameTimer.running = false
+                    tickCounter = false
+                    isOpen = true
+                }
+            }
         }
     }
 
     Repeater {
         model: 7
         delegate: buttonComponent
+    }
+
+    Timer {
+        id: frameTimer
+        interval: 800
+        running: false
+        onTriggered: {
+            mainScreen.tickCounter= true;
+        }
     }
 }

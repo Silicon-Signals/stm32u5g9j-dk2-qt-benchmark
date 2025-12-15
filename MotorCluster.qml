@@ -17,11 +17,11 @@ Image {
     property bool rightindicatorflag: false
     property bool dipperflag: false
 
-    property int tickCount: 0
+    property int tickCounter: 0
     property int indicatorStage: 0
     property int stageTick: 0
     property int blinkStage: 0
-    property int leftframeIndex: 0
+    property int animation_frame: 0
     property int leftframeCount: 40
     property int phaseForward1: 0
     property int phaseReverse1: 1
@@ -29,12 +29,11 @@ Image {
     property int phaseReverse2: 3
     property int phaseForward3: 4
     property int phase: phaseForward1
-    property int rightframeIndex: 0
-    property int rightframeCount: 40
-    property int rpmcounter: 0
-    property int speedcounter: 0
-    property int gearcounter: 0
-    property int currentKm: 0
+    property int rpm_frame: 0
+    property int rpm_percent: 0
+    property int kmh_value: 0
+    property int gear_value: 0
+    property int totalKM: 0
     property int fuelState: 0
     property int batteryState: 0
 
@@ -132,7 +131,7 @@ Image {
         id: speedvalue
         x: 188
         y: 194
-        text: speedcounter
+        text: kmh_value
         font.pixelSize: 55
         font.family: "Digital-7 Italic"
         color: "white"
@@ -152,7 +151,7 @@ Image {
         id: gearvalue
         x: 388
         y: 116
-        text: gearcounter
+        text: gear_value
         font.pixelSize: 55
         font.family: "Digital-7 Italic"
         color: "white"
@@ -172,7 +171,7 @@ Image {
         id: rpmvalue
         x: 575
         y: 194
-        text: rpmcounter
+        text: rpm_percent
         font.pixelSize: 55
         font.family: "Digital-7 Italic"
         color: "white"
@@ -192,7 +191,7 @@ Image {
         id: totaltravel
         x: 411
         y: 425
-        text: currentKm + " KM"
+        text: totalKM + " KM"
         font.pixelSize: 30
         font.family: "Digital-7 Italic"
         color: "white"
@@ -203,7 +202,7 @@ Image {
         sourcePath: "left_speedometer_mask_frames"
         x: -10
         y: 98
-        currentFrame: leftframeIndex
+        currentFrame: animation_frame
         running: false
     }
     AnimatedSpriteDirectory {
@@ -211,7 +210,7 @@ Image {
         sourcePath: "right_speedometer_mask_frames"
         x: 511
         y: 98
-        currentFrame: rightframeIndex
+        currentFrame: rpm_frame
         running: false
     }
 
@@ -305,156 +304,143 @@ Image {
 
     Timer {
         id: masterTimer
-        interval: 500
+        interval: 100
         repeat: true
         running: true
 
         onTriggered: {
-            tickCount++;
-
-            //  INDICATOR SEQUENCE (EVERY 2 SEC)
+            tickCounter++;
             stageTick++;
 
-            if (stageTick >= 4) {
+            // WARNING INDICATION LOGIC (Battery, Service, Engine, Fuel)
+            switch(tickCounter) {
+            case 50:
+                batteryState = 1;
+                break;
+            case 80:
+                blinkStage = 1;
+                break;
+            case 90:
+                batteryState = 2;
+                lowbatteryflag = true;
+                break;
+            case 100:
+                serviceflag = true;
+                batterysymbolflag = false;
+                fuelsymbolflag = true;
+                lowbatteryflag = false;
+                break;
+            case 130:
+                fuelState = 1;
+                break;
+            case 150:
+                engineflag = true;
+                blinkStage = 1;
+                break;
+            case 160:
+                fuelState = 2;
+                break;
+            case 190:
+                fuelState = 3;
+                lowfuelflag = true;
+                break;
+            case 200:
+                lowfuelflag = false;
+                showResultScreen();
+                break;
+            }
+
+            // INDICATOR SEQUENCE (EVERY 2 SEC)
+            if (stageTick >= 20) {
                 stageTick = 0;
                 indicatorStage = (indicatorStage + 1) % 3;
             }
 
-            if (indicatorStage == 0) {
+            switch (indicatorStage) {
+            case 0:
                 leftindicatorflag = false;
                 rightindicatorflag = true;
-            } else if (indicatorStage == 1) {
+                break;
+            case 1:
                 leftindicatorflag = true;
                 rightindicatorflag = true;
-            } else if (indicatorStage == 2) {
+                break;
+            case 2:
                 leftindicatorflag = true;
                 rightindicatorflag = false;
+                break;
             }
 
             // DIPPER BLINKING AT 8s & 15s
-            if (tickCount == 16 || tickCount == 30) {
-                blinkStage = 1;
-            }
-
             if (blinkStage > 0) {
-                dipperflag = ((dipperflag === false) ? true : false);
+                if (blinkStage % 5 === 0) {
+                    dipperflag = !dipperflag;
+                }
                 blinkStage++;
 
-                if (blinkStage > 4) {
+                if (blinkStage > 20) {
                     blinkStage = 0;
                     dipperflag = false;
                 }
             }
 
-            // SERVICE ON and Change BATTERY to FUEL AT 10s
-            if (tickCount == 20) {
-                serviceflag = true;
-                batterysymbolflag = false;
-                fuelsymbolflag = true;
-                lowbatteryflag = false;
-            }
-
-            // ENGINE ON AT 15s
-            if (tickCount == 30) {
-                engineflag = true;
-            }
-
-            // STATE MACHINE for BATTERY STATUS
-            if (tickCount == 10) {
-                batteryState = 1;
-            }
-            if (tickCount == 18) {
-                batteryState = 2;
-                lowbatteryflag = true;
-            }
-
-            // STATE MACHINE for FUEL STATUS
-            if (tickCount == 26) {
-                fuelState = 1;
-            }
-            if (tickCount == 32) {
-                fuelState = 2;
-            }
-            if (tickCount == 38) {
-                fuelState = 3;
-                lowfuelflag = true;
-            }
-            if (tickCount == 40) {
-                lowfuelflag = false;
-            }
-        }
-    }
-
-    Timer {
-        id: frameTimer
-        interval: 100
-        running: true
-        repeat: true
-
-        onTriggered: {
-            if (currentKm < 200) {
-                currentKm++;
-            }
-
-            // Speed and Frame Mapping
+            // ANIMATION FRAME UPDATE
             switch (phase) {
             case phaseForward1:
-                leftframeIndex++;
-                if (leftframeIndex >= leftframeCount - 1)
+                animation_frame++;
+                if (animation_frame >= leftframeCount - 1)
                     phase = phaseReverse1;
                 break;
             case phaseReverse1:
-                leftframeIndex--;
-                if (leftframeIndex <= 13)
+                animation_frame--;
+                if (animation_frame <= 13)
                     phase = phaseForward2;
                 break;
             case phaseForward2:
-                leftframeIndex++;
-                if (leftframeIndex >= 30)
+                animation_frame++;
+                if (animation_frame >= 30)
                     phase = phaseReverse2;
                 break;
             case phaseReverse2:
-                leftframeIndex--;
-                if (leftframeIndex <= 3)
+                animation_frame--;
+                if (animation_frame <= 3)
                     phase = phaseForward3;
                 break;
             case phaseForward3:
-                leftframeIndex++;
-                if (leftframeIndex >= 21)
+                animation_frame++;
+                if (animation_frame >= 21)
                     phase = phaseForward1;
                 break;
             }
 
-            // Gear and Speed Mapping
-            if (leftframeIndex >= 1 && leftframeIndex <= 4) {
-                gearcounter = 1;
-                speedcounter = 3 + ((leftframeIndex - 1) * 7 / 3);
-            } else if (leftframeIndex >= 4 && leftframeIndex <= 10) {
-                gearcounter = 2;
-                speedcounter = 10 + ((leftframeIndex - 4) * 20 / 6);
-            } else if (leftframeIndex >= 10 && leftframeIndex <= 20) {
-                gearcounter = 3;
-                speedcounter = 30 + ((leftframeIndex - 10) * 20 / 10);
-            } else if (leftframeIndex >= 20 && leftframeIndex <= 30) {
-                gearcounter = 4;
-                speedcounter = 50 + ((leftframeIndex - 20) * 30 / 10);
-            } else if (leftframeIndex >= 30 && leftframeIndex <= 39) {
-                gearcounter = 5;
-                speedcounter = 80 + ((leftframeIndex - 30) * 40 / 9);
+            // CALCULATE KM/H & RPM %
+            if (animation_frame > 0 && animation_frame <= 4) {
+                gear_value = 1;
+                kmh_value = 3 + ((animation_frame - 1) * 7 / 3);
+            } else if (animation_frame > 4 && animation_frame <= 10) {
+                gear_value = 2;
+                kmh_value = 10 + ((animation_frame - 4) * 20 / 6);
+            } else if (animation_frame > 10 && animation_frame <= 20) {
+                gear_value = 3;
+                kmh_value = 30 + ((animation_frame - 10) * 20 / 10);
+            } else if (animation_frame > 20 && animation_frame <= 30) {
+                gear_value = 4;
+                kmh_value = 50 + ((animation_frame - 20) * 30 / 10);
+            } else if (animation_frame > 30 && animation_frame <= 39) {
+                gear_value = 5;
+                kmh_value = 80 + ((animation_frame - 30) * 40 / 9);
             } else {
-                gearcounter = 0;
-                speedcounter = 0;
+                gear_value = 0;
+                kmh_value = 0;
             }
 
-            // RPM Percentage (0–100%)
-            rpmcounter = Math.floor((speedcounter * 100) / 120);
+            rpm_percent = (kmh_value * 100) / 120;
+            rpm_frame = (rpm_percent * 39) / 100;
 
-            if (rpmcounter < 0)
-                rpmcounter = 0;
-            if (rpmcounter > 100)
-                rpmcounter = 100;
-
-            rightframeIndex = (rpmcounter * 39) / 100;
+            // TOTAL KM (0 → 200)
+            if (tickCounter < 200) {
+                totalKM++;
+            }
         }
     }
 
@@ -521,18 +507,6 @@ Image {
             font.pixelSize: 25
             color: "white"
             font.bold: true
-        }
-    }
-
-    Timer {
-        id: stopTimer
-        interval: 20000
-        running: true
-        repeat: false
-        onTriggered: {
-            masterTimer.running = false;
-            frameTimer.running = false;
-            showResultScreen();
         }
     }
 }

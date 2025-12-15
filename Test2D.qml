@@ -27,9 +27,7 @@ Rectangle {
         ]
 
         Image {
-            width: 125
-            height: 125
-            source: "images/siliconsignals.png"
+            source: "images/siliconsignals_logo.png"
 
             x: modelData.x
             y: modelData.y
@@ -62,9 +60,7 @@ Rectangle {
 
         Image {
             id: mover
-            width: 125
-            height: 125
-            source: "images/siliconsignals.png"
+            source: "images/siliconsignals_logo.png"
 
             x: modelData.baseX
             y: modelData.baseY
