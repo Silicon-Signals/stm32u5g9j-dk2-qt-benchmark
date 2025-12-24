@@ -30,6 +30,7 @@ Project {
         // Font properties for "Static"
         addDefaultFonts: true // Set to false to disable add adding default fonts to your project.
         autoGenerateGlyphs: true
+        Experimental.mergeStaticTextGlyphs: true
 
         // Font properties for "Spark"
         // These properties are in effect only if the "Spark" font engine is used
@@ -74,6 +75,7 @@ Project {
             "images/tire4.svg",
             "images/tire5.svg"
         ]
+	MCU.resourceStorageSection: "QulResourceData"
     }
 
     ImageFiles {
@@ -106,21 +108,25 @@ Project {
             "images/battery_half.png",
             "images/battery_low.png"
         ]
+	MCU.resourceStorageSection: "QulResourceData"
     }
 
     ImageFiles {
         directory: "frames"
         MCU.resourceAnimatedSprite: true
+	MCU.resourceStorageSection: "QulResourceData"
     }
 
     ImageFiles {
         directory: "left_speedometer_mask_frames"
         MCU.resourceAnimatedSprite: true
+	MCU.resourceStorageSection: "QulResourceData"
     }
 
     ImageFiles {
         directory: "right_speedometer_mask_frames"
         MCU.resourceAnimatedSprite: true
+	MCU.resourceStorageSection: "QulResourceData"
     }
 
     FontFiles {
