@@ -88,38 +88,37 @@ static void Matrics_Thread(void *argument)
 
 int GetTaskCPUUsage(TaskHandle_t thread_id)
 {
+    static uint32_t lastTotalRunTime = 0;
+    static uint32_t lastTaskRunTime = 0;
+ 
     UBaseType_t taskCount;
     TaskStatus_t *pxTaskStatusArray;
     configRUN_TIME_COUNTER_TYPE totalRunTime;
-
+    int result = 0;
+ 
     taskCount = uxTaskGetNumberOfTasks();
     pxTaskStatusArray = (TaskStatus_t *)pvPortMalloc(taskCount * sizeof(TaskStatus_t));
-
-    if (pxTaskStatusArray != NULL)
-    {
+ 
+    if (pxTaskStatusArray != NULL) {
         taskCount = uxTaskGetSystemState(pxTaskStatusArray, taskCount, &totalRunTime);
-
-        if (totalRunTime > 0)
-        {
-            for (UBaseType_t i = 0; i < taskCount; i++)
-            {
-                if (pxTaskStatusArray[i].xHandle == (TaskHandle_t)thread_id)
-                {
-                    percentage = (((float)pxTaskStatusArray[i].ulRunTimeCounter * 100.0f) / (float)totalRunTime);
-                    vPortFree(pxTaskStatusArray);
-                    return (int)percentage;
-                } else {
-                    continue;
+        uint32_t deltaTotal = totalRunTime - lastTotalRunTime;
+ 
+        if (deltaTotal > 0) {
+            for (UBaseType_t i = 0; i < taskCount; i++) {
+                if (pxTaskStatusArray[i].xHandle == (TaskHandle_t)thread_id) {
+                    uint32_t deltaTask = pxTaskStatusArray[i].ulRunTimeCounter - lastTaskRunTime;
+                    percentage = ((float)deltaTask / (float)deltaTotal) * 100.0f;
+                    result = (int)percentage;
+ 
+                    lastTaskRunTime = pxTaskStatusArray[i].ulRunTimeCounter;
+                    break;
                 }
             }
-        } else {
-            return 0;
         }
-    } else {
-        return 0;
+        lastTotalRunTime = totalRunTime;
+        vPortFree(pxTaskStatusArray);
     }
-
-    return 0;
+    return result;
 }
 
 void configureTimerForRunTimeStats(void)
