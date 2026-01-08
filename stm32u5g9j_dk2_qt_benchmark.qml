@@ -5,7 +5,7 @@ Rectangle {
     width: 800
     height: 480
 
-    property StatusProvider setStatus
+    // property StatusProvider StatusProvider
 
     property int currentScreen: MainScreen.ScreenIndex.MainscreenButton
     property int demoName: 1
@@ -131,7 +131,7 @@ Rectangle {
         x: 695
         y: 450
         z: 10
-        text: setStatus.fps + " FPS, "
+        text: StatusProvider.fps + " FPS, "
         color: "white"
         font.family: "Calibri"
         font.pixelSize: 15
@@ -141,7 +141,7 @@ Rectangle {
         x: 740
         y: 450
         z: 10
-        text: setStatus.cpuUsage + " %CPU"
+        text: StatusProvider.cpuUsage + " %CPU"
         color: "white"
         font.family: "Calibri"
         font.pixelSize: 15
@@ -151,7 +151,7 @@ Rectangle {
         x: 695
         y: 461
         z: 10
-        text: setStatus.renderTime + " ms"
+        text: StatusProvider.renderTime + " ms"
         color: "white"
         font.family: "Calibri"
         font.pixelSize: 15
@@ -163,15 +163,15 @@ Rectangle {
         running: true
         repeat: true
         onTriggered: {
-            setStatus.update(setStatus.cpuUsage, setStatus.stackUsage, setStatus.heapUsage, setStatus.fps, setStatus.renderTime);
+            StatusProvider.update(StatusProvider.cpuUsage, StatusProvider.stackUsage, StatusProvider.heapUsage, StatusProvider.fps, StatusProvider.renderTime);
 
             if (currentScreen >= 1 && currentScreen <= 6) {
                 tickTimeAvg++;
-                tempfpsAvg        += setStatus.fps;
-                tempstackusageAvg += setStatus.stackUsage;
-                tempheapusageAvg  += setStatus.heapUsage;
-                tempredertimeAvg  += setStatus.renderTime;
-                tempcpuloadAvg    += setStatus.cpuUsage;
+                tempfpsAvg        += StatusProvider.fps;
+                tempstackusageAvg += StatusProvider.stackUsage;
+                tempheapusageAvg  += StatusProvider.heapUsage;
+                tempredertimeAvg  += StatusProvider.renderTime;
+                tempcpuloadAvg    += StatusProvider.cpuUsage;
             } else {
                 tickTimeAvg = 0;
             }

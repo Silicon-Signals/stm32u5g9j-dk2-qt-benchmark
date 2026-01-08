@@ -1,4 +1,5 @@
 import QtQuick
+import "shapes"
 
 Rectangle {
     id: svgDemo
@@ -12,94 +13,109 @@ Rectangle {
     property int pairhold: 300
 
     // Car Body
-    Image {
+    CarBody {
         id: car_body
         x: 183
         y: 271
-        source: "images/car_body.svg"
+        // source: "images/car_body.svg"
     }
 
-    Image {
+    Item {
         id: tire_pair1
         x: 219
         y: 314
-        source: "images/tire_pair1.svg"
+        // source: "images/tire_pair1.svg"
         visible: true
+
+        Tire1 { }
+        Tire1 { }
     }
 
-    Image {
+    Item {
         id: tire_pair2
         x: 219
         y: 314
-        source: "images/tire_pair2.svg"
+        // source: "images/tire_pair2.svg"
         visible: false
+
+        Tire2 { }
+        Tire2 { }
     }
 
-    Image {
+    Item {
         id: tire_pair3
         x: 219
         y: 314
-        source: "images/tire_pair3.svg"
+        // source: "images/tire_pair3.svg"
         visible: false
+
+        Tire3 { }
+        Tire3 { }
     }
 
-    Image {
+    Item {
         id: tire_pair4
         x: 219
         y: 314
-        source: "images/tire_pair4.svg"
+        // source: "images/tire_pair4.svg"
         visible: false
+
+        Tire4 { }
+        Tire4 { }
     }
 
-    Image {
+    Item {
         id: tire_pair5
         x: 219
         y: 314
-        source: "images/tire_pair5.svg"
+        // source: "images/tire_pair5.svg"
         visible: false
+
+        Tire5 { }
+        Tire5 { }
     }
 
     // Ellipse
-    Image {
+    Ellipse {
         id: ellipse
         x: 87
         y: -38
-        source: "images/ellipse.svg"
+        // source: "images/ellipse.svg"
     }
 
-    Image {
+    Tire1 {
         id: tire1
         x: 367
         y: 165
-        source: "images/tire1.svg"
+        // source: "images/tire1.svg"
     }
 
-    Image {
+    Tire2 {
         id: tire2
         x: 543
         y: 127
-        source: "images/tire2.svg"
+        // source: "images/tire2.svg"
     }
 
-    Image {
+    Tire3 {
         id: tire3
         x: 659
         y: 16
-        source: "images/tire3.svg"
+        // source: "images/tire3.svg"
     }
 
-    Image {
+    Tire4 {
         id: tire4
         x: 80
         y: 16
-        source: "images/tire4.svg"
+        // source: "images/tire4.svg"
     }
 
-    Image {
+    Tire5 {
         id: tire5
         x: 188
         y: 127
-        source: "images/tire5.svg"
+        // source: "images/tire5.svg"
     }
 
     SequentialAnimation {

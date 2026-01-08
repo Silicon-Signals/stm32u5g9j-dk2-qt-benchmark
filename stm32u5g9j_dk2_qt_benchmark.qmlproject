@@ -49,6 +49,13 @@ Project {
             "Test2D.qml",
             "StaticImage.qml",
             "SVGDemo.qml",
+            "shapes/Tire1.qml",
+            "shapes/Tire2.qml",
+            "shapes/Tire3.qml",
+            "shapes/Tire4.qml",
+            "shapes/Tire5.qml",
+            "shapes/CarBody.qml",
+            "shapes/Ellipse.qml",
             "TextScroll.qml",
             "MotorCluster.qml",
             "ResultScreen.qml"
@@ -152,7 +159,7 @@ Project {
         MCU.qulModules: [
             // "Qul::Controls",
             // "Qul::ControlsTemplates",
-            // "Qul::Shapes",
+            "Qul::Shapes",
             // "Qul::Timeline"
         ]
     }

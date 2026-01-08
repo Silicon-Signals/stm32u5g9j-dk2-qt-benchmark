@@ -3,8 +3,9 @@
 
 #include <qul/object.h>
 #include <qul/property.h>
+#include <qul/singleton.h>
 
-class StatusProvider : public Qul::Object
+class StatusProvider : public Qul::Singleton<StatusProvider>
 {
 public:
     Qul::Property<int> cpuUsage;
@@ -13,7 +14,7 @@ public:
     Qul::Property<uint32_t> fps;
     Qul::Property<uint64_t> renderTime;
 
-    StatusProvider ()
+    StatusProvider()
     {
         cpuUsage.setValue(0);
         stackUsage.setValue(0);
