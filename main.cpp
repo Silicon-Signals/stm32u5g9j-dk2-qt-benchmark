@@ -32,7 +32,6 @@ volatile uint32_t elapsed_ms = 0;
 volatile uint32_t stackUsage = 0;
 volatile uint32_t heapUsage = 0;
 volatile uint32_t frames = 0;
-StatusProvider statusProvider;
 
 extern "C" {
 void metrics_print(void);
@@ -73,7 +72,6 @@ static void Qul_Thread(void *argument)
 #ifdef APP_DEFAULT_UILANGUAGE
     _qul_app.settings().uiLanguage.setValue(APP_DEFAULT_UILANGUAGE);
 #endif
-    _qul_item.setStatus.setValue(&statusProvider);
     _qul_app.exec();
 }
 
@@ -172,7 +170,11 @@ void metrics_print(void)
         frames = framecounter - last_frames;
         last_frames = framecounter;
 
-        statusProvider.update(GetTaskCPUUsage(GUItaskHandler), stackUsage/1024, heapUsage/1024, frames, render_time);
+        StatusProvider::instance().update(GetTaskCPUUsage(GUItaskHandler),
+                                          stackUsage / 1024,
+                                          heapUsage / 1024,
+                                          frames,
+                                          render_time);
         render_time = 0;
     }
 }
