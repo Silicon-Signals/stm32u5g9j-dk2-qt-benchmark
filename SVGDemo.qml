@@ -27,8 +27,14 @@ Rectangle {
         // source: "images/tire_pair1.svg"
         visible: true
 
-        Tire1 { }
-        Tire1 { }
+        Tire1 {
+            x: 8
+            y: 8
+        }
+        Tire1 {
+            x: 290
+            y: 8
+        }
     }
 
     Item {
@@ -38,8 +44,14 @@ Rectangle {
         // source: "images/tire_pair2.svg"
         visible: false
 
-        Tire2 { }
-        Tire2 { }
+        Tire2 {
+            x: 8
+            y: 8
+        }
+        Tire2 {
+            x: 290
+            y: 8
+        }
     }
 
     Item {
@@ -49,8 +61,14 @@ Rectangle {
         // source: "images/tire_pair3.svg"
         visible: false
 
-        Tire3 { }
-        Tire3 { }
+        Tire3 {
+            x: 8
+            y: 8
+        }
+        Tire3 {
+            x: 290
+            y: 8
+        }
     }
 
     Item {
@@ -60,8 +78,14 @@ Rectangle {
         // source: "images/tire_pair4.svg"
         visible: false
 
-        Tire4 { }
-        Tire4 { }
+        Tire4 {
+            x: 8
+            y: 8
+        }
+        Tire4 {
+            x: 290
+            y: 8
+        }
     }
 
     Item {
@@ -71,8 +95,14 @@ Rectangle {
         // source: "images/tire_pair5.svg"
         visible: false
 
-        Tire5 { }
-        Tire5 { }
+        Tire5 {
+            x: 8
+            y: 8
+        }
+        Tire5 {
+            x: 290
+            y: 8
+        }
     }
 
     // Ellipse
