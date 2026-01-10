@@ -29,18 +29,36 @@ static uint32_t last_time = 0;
 static uint32_t last_frames = 0;
 volatile uint32_t current_ms = 0;
 volatile uint32_t elapsed_ms = 0;
-volatile uint32_t stackUsage = 0;
-volatile uint32_t heapUsage = 0;
 volatile uint32_t frames = 0;
 StatusProvider statusProvider;
 
+volatile uint32_t totalRamUsed = 0;
+
 extern "C" {
 void metrics_print(void);
+// Declare Internal Flash Symbols
+extern uint32_t _sidata;       // Start of Data in Flash
+extern uint32_t _sdata;        // Start of Data in RAM
+extern uint32_t _edata;        // End of Data in RAM
+extern uint32_t _sbss;         // Start of BSS in RAM
+extern uint32_t _ebss;         // End of BSS in RAM
+extern uint32_t __Stack_Size;
+
+// Declare External OSPI Symbols (The ones we added)
+extern uint32_t __ospi_font_start__;
+extern uint32_t __ospi_font_end__;
+extern uint32_t __ospi_mres_start__;
+extern uint32_t __ospi_mres_end__;
+extern uint32_t __ospi_res_start__;
+extern uint32_t __ospi_res_end__;
 }
 
 int main()
 {
     Qul::initHardware();
+    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+    DWT->CYCCNT = 0;
+    DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
 
 #ifdef APP_SAFE_RENDERER
     static SafeRendererBitmapDecoder srbDecoder;
@@ -82,7 +100,6 @@ static void Matrics_Thread(void *argument)
     (void) argument;
     while (1) {
         metrics_print();
-        // HAL_Delay(100);
     }
 }
 
@@ -90,26 +107,26 @@ int GetTaskCPUUsage(TaskHandle_t thread_id)
 {
     static uint32_t lastTotalRunTime = 0;
     static uint32_t lastTaskRunTime = 0;
- 
+
     UBaseType_t taskCount;
     TaskStatus_t *pxTaskStatusArray;
     configRUN_TIME_COUNTER_TYPE totalRunTime;
     int result = 0;
- 
+
     taskCount = uxTaskGetNumberOfTasks();
     pxTaskStatusArray = (TaskStatus_t *)pvPortMalloc(taskCount * sizeof(TaskStatus_t));
- 
+
     if (pxTaskStatusArray != NULL) {
         taskCount = uxTaskGetSystemState(pxTaskStatusArray, taskCount, &totalRunTime);
         uint32_t deltaTotal = totalRunTime - lastTotalRunTime;
- 
+
         if (deltaTotal > 0) {
             for (UBaseType_t i = 0; i < taskCount; i++) {
                 if (pxTaskStatusArray[i].xHandle == (TaskHandle_t)thread_id) {
                     uint32_t deltaTask = pxTaskStatusArray[i].ulRunTimeCounter - lastTaskRunTime;
                     percentage = ((float)deltaTask / (float)deltaTotal) * 100.0f;
                     result = (int)percentage;
- 
+
                     lastTaskRunTime = pxTaskStatusArray[i].ulRunTimeCounter;
                     break;
                 }
@@ -163,8 +180,19 @@ void metrics_print(void)
     current_ms = HAL_GetTick();
     elapsed_ms = current_ms - last_time;
 
-    stackUsage = (QUL_STACK_SIZE - uxTaskGetStackHighWaterMark(GUItaskHandler)) * sizeof(StackType_t);
-    heapUsage = configTOTAL_HEAP_SIZE - xPortGetFreeHeapSize();
+    totalRamUsed = ((uint32_t)&_edata - (uint32_t)&_sdata) +
+                   ((uint32_t)&_ebss - (uint32_t)&_sbss) +
+                   configTOTAL_HEAP_SIZE +
+                   (uint32_t)&__Stack_Size;
+
+    uint32_t flash_start = 0x08000000;
+    uint32_t data_size   = (uint32_t)&_edata - (uint32_t)&_sdata;
+    uint32_t internal_flash_usage = ((uint32_t)&_sidata - flash_start) + data_size;
+
+    uint32_t ospi_font = (uint32_t)&__ospi_font_end__ - (uint32_t)&__ospi_font_start__;
+    uint32_t ospi_mres = (uint32_t)&__ospi_mres_end__ - (uint32_t)&__ospi_mres_start__;
+    uint32_t ospi_res = (uint32_t)&__ospi_res_end__ - (uint32_t)&__ospi_res_start__;
+    uint32_t external_memory_usage = ospi_font + ospi_mres + ospi_res;
 
     if (elapsed_ms >= 1000)
     {
@@ -172,7 +200,7 @@ void metrics_print(void)
         frames = framecounter - last_frames;
         last_frames = framecounter;
 
-        statusProvider.update(GetTaskCPUUsage(GUItaskHandler), stackUsage/1024, heapUsage/1024, frames, render_time);
+        statusProvider.update(GetTaskCPUUsage(GUItaskHandler), totalRamUsed/(1024 * 1024), internal_flash_usage/1024, external_memory_usage/(1024 * 1024), frames, render_time);
         render_time = 0;
     }
 }

@@ -10,13 +10,15 @@ Rectangle {
     property int currentScreen: MainScreen.ScreenIndex.MainscreenButton
     property int demoName: 1
     property int tempfpsAvg: 0
-    property int tempstackusageAvg: 0
-    property int tempheapusageAvg: 0
+    property int tempusageRAMAvg: 0
+    property int tempinternalflashusageAvg: 0
+    property int tempexternalflashusageAvg: 0
     property int tempredertimeAvg: 0
     property int tempcpuloadAvg: 0
     property int fpsAvg: 0
-    property int stackusageAvg: 0
-    property int heapusageAvg: 0
+    property int usageRAMAvg: 0
+    property int internalflashusageAvg: 0
+    property int externalflashusageAvg: 0
     property int redertimeAvg: 0
     property int cpuloadAvg: 0
     property int tickTimeAvg: 0
@@ -25,7 +27,7 @@ Rectangle {
     Text {
         id: demo
         x: 415
-        y: 154
+        y: 106
         z: 10
         font.family: "Calibri"
         font.pixelSize: 18
@@ -59,7 +61,7 @@ Rectangle {
     Text {
         id: framevalue
         x: 415
-        y: 190
+        y: 142
         z: 10
         text: fpsAvg
         font.family: "Calibri"
@@ -69,11 +71,11 @@ Rectangle {
     }
 
     Text {
-        id: stackvalue
+        id: ramvalue
         x: 415
-        y: 226
+        y: 178
         z: 10
-        text: stackusageAvg + " KB"
+        text: usageRAMAvg + " MB"
         font.family: "Calibri"
         font.pixelSize: 18
         color: "white"
@@ -81,11 +83,23 @@ Rectangle {
     }
 
     Text {
-        id: heapvalue
+        id: internalflashvalue
         x: 415
-        y: 262
+        y: 214
         z: 10
-        text: heapusageAvg + " KB"
+        text: internalflashusageAvg + " KB"
+        font.family: "Calibri"
+        font.pixelSize: 18
+        color: "white"
+        visible: currentScreen === MainScreen.ScreenIndex.ResultScreen
+    }
+
+    Text {
+        id: externalflashvalue
+        x: 415
+        y: 250
+        z: 10
+        text: externalflashusageAvg + " MB"
         font.family: "Calibri"
         font.pixelSize: 18
         color: "white"
@@ -95,7 +109,7 @@ Rectangle {
     Text {
         id: rendervalue
         x: 415
-        y: 298
+        y: 286
         z: 10
         text: redertimeAvg + " ms"
         font.family: "Calibri"
@@ -107,7 +121,7 @@ Rectangle {
     Text {
         id: cpuvalue
         x: 415
-        y: 334
+        y: 322
         z: 10
         text: cpuloadAvg + " %"
         font.family: "Calibri"
@@ -163,13 +177,14 @@ Rectangle {
         running: true
         repeat: true
         onTriggered: {
-            setStatus.update(setStatus.cpuUsage, setStatus.stackUsage, setStatus.heapUsage, setStatus.fps, setStatus.renderTime);
+            setStatus.update(setStatus.cpuUsage, setStatus.ramUsage, setStatus.internalflashUsage, setStatus.externalflashUsage, setStatus.fps, setStatus.renderTime);
 
             if (currentScreen >= 1 && currentScreen <= 6) {
                 tickTimeAvg++;
                 tempfpsAvg        += setStatus.fps;
-                tempstackusageAvg += setStatus.stackUsage;
-                tempheapusageAvg  += setStatus.heapUsage;
+                tempusageRAMAvg   += setStatus.ramUsage;
+                tempinternalflashusageAvg  += setStatus.internalflashUsage;
+                tempexternalflashusageAvg  += setStatus.externalflashUsage;
                 tempredertimeAvg  += setStatus.renderTime;
                 tempcpuloadAvg    += setStatus.cpuUsage;
             } else {
@@ -213,15 +228,17 @@ Rectangle {
     function goToResultScreen() {
         if (tickTimeAvg > 0) {
             fpsAvg        = tempfpsAvg        / tickTimeAvg;
-            stackusageAvg = tempstackusageAvg / tickTimeAvg;
-            heapusageAvg  = tempheapusageAvg  / tickTimeAvg;
+            usageRAMAvg = tempusageRAMAvg / tickTimeAvg;
+            internalflashusageAvg  = tempinternalflashusageAvg  / tickTimeAvg;
+            externalflashusageAvg  = tempexternalflashusageAvg  / tickTimeAvg;
             redertimeAvg  = tempredertimeAvg  / tickTimeAvg;
             cpuloadAvg    = tempcpuloadAvg    / tickTimeAvg;
         }
         tickTimeAvg = 0;
         tempfpsAvg = 0;
-        tempstackusageAvg = 0;
-        tempheapusageAvg = 0;
+        tempusageRAMAvg = 0;
+        tempinternalflashusageAvg = 0;
+        tempexternalflashusageAvg = 0;
         tempredertimeAvg = 0;
         tempcpuloadAvg = 0;
 

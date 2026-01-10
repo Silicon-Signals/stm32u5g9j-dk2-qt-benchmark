@@ -28,7 +28,7 @@ Item {
         Text {
             id: text1
             x: 165
-            y: 154
+            y: 106
             text: "Test"
             font.family: "Calibri"
             font.pixelSize: 18
@@ -39,7 +39,7 @@ Item {
         Text {
             id: text2
             x: 165
-            y: 190
+            y: 142
             text: "Frame Rate (FPS)"
             font.family: "Calibri"
             font.pixelSize: 18
@@ -49,8 +49,8 @@ Item {
         Text {
             id: text3
             x: 165
-            y: 226
-            text: "Stack Usage"
+            y: 178
+            text: "RAM Usage"
             font.family: "Calibri"
             font.pixelSize: 18
             color: "white"
@@ -59,8 +59,8 @@ Item {
         Text {
             id: text4
             x: 165
-            y: 262
-            text: "Heap Usage"
+            y: 214
+            text: "Internal Flash Usage"
             font.family: "Calibri"
             font.pixelSize: 18
             color: "white"
@@ -69,8 +69,8 @@ Item {
         Text {
             id: text5
             x: 165
-            y: 298
-            text: "Render Time (Frame Latency)"
+            y: 250
+            text: "External Flash Usage"
             font.family: "Calibri"
             font.pixelSize: 18
             color: "white"
@@ -79,7 +79,17 @@ Item {
         Text {
             id: text6
             x: 165
-            y: 334
+            y: 286
+            text: "Render Time (Frame Latency)"
+            font.family: "Calibri"
+            font.pixelSize: 18
+            color: "white"
+        }
+
+        Text {
+            id: text7
+            x: 165
+            y: 322
             text: "CPU Load %"
             font.family: "Calibri"
             font.pixelSize: 18
