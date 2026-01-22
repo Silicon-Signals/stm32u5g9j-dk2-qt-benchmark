@@ -64,42 +64,42 @@ Rectangle {
         id: ellipse
         x: 87
         y: -38
-        source: "images/ellipse.svg"
+        source: "images/Ellipse.svg"
     }
 
     Image {
         id: tire1
         x: 367
         y: 165
-        source: "images/tire1.svg"
+        source: "images/Tire1.svg"
     }
 
     Image {
         id: tire2
         x: 543
         y: 127
-        source: "images/tire2.svg"
+        source: "images/Tire2.svg"
     }
 
     Image {
         id: tire3
         x: 659
         y: 16
-        source: "images/tire3.svg"
+        source: "images/Tire3.svg"
     }
 
     Image {
         id: tire4
         x: 80
         y: 16
-        source: "images/tire4.svg"
+        source: "images/Tire4.svg"
     }
 
     Image {
         id: tire5
         x: 188
         y: 127
-        source: "images/tire5.svg"
+        source: "images/Tire5.svg"
     }
 
     SequentialAnimation {
