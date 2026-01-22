@@ -316,4 +316,15 @@ Rectangle {
             onBackToMain: goToMainScreen()
         }
     }
+
+    Rectangle {
+        id: frameRedrawRectangle
+        width: 1
+        height: 1
+        color: "#000000"
+        opacity: 0.02
+        property real t: 0
+        NumberAnimation on t { from: 0; to: 1; running: true; loops: Animation.Infinite; }
+        onTChanged: frameRedrawRectangle.visible = !frameRedrawRectangle.visible
+    }
 }
