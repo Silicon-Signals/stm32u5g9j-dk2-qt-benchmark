@@ -9,11 +9,11 @@ Rectangle {
 
     property int currentScreen: MainScreen.ScreenIndex.MainscreenButton
     property int demoName: 1
-    property int tempfpsAvg: 0
-    property int tempstackusageAvg: 0
-    property int tempheapusageAvg: 0
-    property int tempredertimeAvg: 0
-    property int tempcpuloadAvg: 0
+    property real tempfpsAvg: 0
+    property real tempstackusageAvg: 0
+    property real tempheapusageAvg: 0
+    property real tempredertimeAvg: 0
+    property real tempcpuloadAvg: 0
     property int fpsAvg: 0
     property int stackusageAvg: 0
     property int heapusageAvg: 0
@@ -165,6 +165,8 @@ Rectangle {
         onTriggered: {
             setStatus.update(setStatus.cpuUsage, setStatus.stackUsage, setStatus.heapUsage, setStatus.fps, setStatus.renderTime);
 
+            statusTimer.interval = 1000;
+
             if (currentScreen >= 1 && currentScreen <= 6) {
                 tickTimeAvg++;
                 tempfpsAvg        += setStatus.fps;
@@ -212,11 +214,11 @@ Rectangle {
 
     function goToResultScreen() {
         if (tickTimeAvg > 0) {
-            fpsAvg        = tempfpsAvg        / tickTimeAvg;
-            stackusageAvg = tempstackusageAvg / tickTimeAvg;
-            heapusageAvg  = tempheapusageAvg  / tickTimeAvg;
-            redertimeAvg  = tempredertimeAvg  / tickTimeAvg;
-            cpuloadAvg    = tempcpuloadAvg    / tickTimeAvg;
+            fpsAvg        = Math.round(tempfpsAvg        / tickTimeAvg);
+            stackusageAvg = Math.round(tempstackusageAvg / tickTimeAvg);
+            heapusageAvg  = Math.round(tempheapusageAvg  / tickTimeAvg);
+            redertimeAvg  = Math.round(tempredertimeAvg  / tickTimeAvg);
+            cpuloadAvg    = Math.round(tempcpuloadAvg    / tickTimeAvg);
         }
         tickTimeAvg = 0;
         tempfpsAvg = 0;
@@ -250,6 +252,11 @@ Rectangle {
 
             onNavigateTo: {
                 currentScreen = index;
+
+                // Use a longer interval at first, to make sure metrics_print has the
+                // time to finish at least one time with results fully from the next screen
+                statusTimer.interval = 2000;
+                statusTimer.restart();
             }
         }
     }
