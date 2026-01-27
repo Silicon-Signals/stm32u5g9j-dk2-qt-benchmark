@@ -9,12 +9,12 @@ Rectangle {
 
     property int currentScreen: MainScreen.ScreenIndex.MainscreenButton
     property int demoName: 1
-    property int tempfpsAvg: 0
-    property int tempusageRAMAvg: 0
-    property int tempinternalflashusageAvg: 0
-    property int tempexternalflashusageAvg: 0
-    property int tempredertimeAvg: 0
-    property int tempcpuloadAvg: 0
+    property real tempfpsAvg: 0
+    property real tempusageRAMAvg: 0
+    property real tempinternalflashusageAvg: 0
+    property real tempexternalflashusageAvg: 0
+    property real tempredertimeAvg: 0
+    property real tempcpuloadAvg: 0
     property int fpsAvg: 0
     property int usageRAMAvg: 0
     property int internalflashusageAvg: 0
@@ -178,6 +178,7 @@ Rectangle {
         repeat: true
         onTriggered: {
             setStatus.update(setStatus.cpuUsage, setStatus.ramUsage, setStatus.internalflashUsage, setStatus.externalflashUsage, setStatus.fps, setStatus.renderTime);
+            statusTimer.interval = 1000;
 
             if (currentScreen >= 1 && currentScreen <= 6) {
                 tickTimeAvg++;
@@ -227,12 +228,12 @@ Rectangle {
 
     function goToResultScreen() {
         if (tickTimeAvg > 0) {
-            fpsAvg        = tempfpsAvg        / tickTimeAvg;
-            usageRAMAvg = tempusageRAMAvg / tickTimeAvg;
-            internalflashusageAvg  = tempinternalflashusageAvg  / tickTimeAvg;
-            externalflashusageAvg  = tempexternalflashusageAvg  / tickTimeAvg;
-            redertimeAvg  = tempredertimeAvg  / tickTimeAvg;
-            cpuloadAvg    = tempcpuloadAvg    / tickTimeAvg;
+            fpsAvg        = Math.round(tempfpsAvg       / tickTimeAvg);
+            usageRAMAvg   = Math.round(tempusageRAMAvg  / tickTimeAvg);
+            internalflashusageAvg = Math.round(tempinternalflashusageAvg / tickTimeAvg);
+            externalflashusageAvg = Math.round(tempexternalflashusageAvg / tickTimeAvg);
+            redertimeAvg  = Math.round(tempredertimeAvg / tickTimeAvg);
+            cpuloadAvg    = Math.round(tempcpuloadAvg   / tickTimeAvg);
         }
         tickTimeAvg = 0;
         tempfpsAvg = 0;
@@ -267,6 +268,8 @@ Rectangle {
 
             onNavigateTo: {
                 currentScreen = index;
+                statusTimer.interval = 2000;
+                statusTimer.restart();
             }
         }
     }
