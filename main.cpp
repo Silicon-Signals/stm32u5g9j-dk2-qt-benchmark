@@ -200,7 +200,7 @@ void metrics_print(void)
         frames = framecounter - last_frames;
         last_frames = framecounter;
 
-        statusProvider.update(GetTaskCPUUsage(GUItaskHandler), totalRamUsed/(1024 * 1024), internal_flash_usage/1024, external_memory_usage/(1024 * 1024), frames, render_time);
+        statusProvider.update(GetTaskCPUUsage(GUItaskHandler), totalRamUsed/1024, internal_flash_usage/1024, external_memory_usage/(1024 * 1024), frames, render_time);
         render_time = 0;
     }
 }

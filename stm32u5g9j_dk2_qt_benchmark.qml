@@ -75,7 +75,7 @@ Rectangle {
         x: 415
         y: 178
         z: 10
-        text: usageRAMAvg + " MB"
+        text: usageRAMAvg + " KB"
         font.family: "Calibri"
         font.pixelSize: 18
         color: "white"
