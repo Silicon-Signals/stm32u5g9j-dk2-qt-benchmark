@@ -5,6 +5,7 @@ Image {
     source: "images/ui_bg.png"
 
     signal navigateTo(index: int)
+    signal startAutoMode()
 
     enum ScreenIndex {
         MainscreenButton = 0,
@@ -129,7 +130,7 @@ Image {
         height: 188
 
         Text {
-            anchors.centerIn: parent
+            anchors.centerIn: startButton
             text: "START"
             color: "white"
             font.family: "Calibri"
@@ -146,11 +147,46 @@ Image {
                 var r  = width / 2
 
                 if (dx*dx + dy*dy <= r*r) {
+                    mainScreen.forceOpen = false
                     frameTimer.running = false
                     tickCounter = false
-                    isOpen = true
+                    if (autoSwitch.checked) {
+                        startAutoMode()
+                    } else {
+                        isOpen = true
+                    }
                 }
             }
+        }
+    }
+
+    Image {
+        id: autoSwitch
+        x: 0
+        y: 438
+        source: autoSwitch.checked ? "images/toggle_right.png" : "images/toggle_left.png"
+        property bool checked: false
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                autoSwitch.checked = !autoSwitch.checked
+                if (mainScreen.isOpen) {
+                    mainScreen.forceOpen = true
+                    mainScreen.handleClick(MainScreen.ScreenIndex.MainscreenButton)
+                }
+            }
+        }
+
+        Text {
+            x: 88
+            text: autoSwitch.checked ? "Auto" : "Manual"
+            color: "white"
+            font.family: "Calibri"
+            font.pixelSize: 18
+            anchors.verticalCenterOffset: 0
+            font.bold: true
+            anchors.verticalCenter: parent.verticalCenter
         }
     }
 
@@ -161,10 +197,10 @@ Image {
 
     Timer {
         id: frameTimer
-        interval: 800
+        interval: mainScreen.forceOpen ? 0 : 800
         running: false
         onTriggered: {
-            mainScreen.tickCounter= true;
+            mainScreen.tickCounter = true;
         }
     }
 }

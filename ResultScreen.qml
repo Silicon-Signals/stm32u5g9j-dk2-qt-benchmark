@@ -7,6 +7,8 @@ Item {
 
     signal backToMain
 
+    property bool isAutoMode: false
+
     Image {
         id: resultBG
         source: "images/result_bg.png"
@@ -18,6 +20,7 @@ Item {
             width: 63
             height: 65
             source: "images/result_home_button.png"
+            visible: !resultScreen.isAutoMode
 
             MouseArea {
                 anchors.fill: parent
@@ -28,7 +31,7 @@ Item {
         Text {
             id: text1
             x: 165
-            y: 106
+            y: 154
             text: "Test"
             font.family: "Calibri"
             font.pixelSize: 18
@@ -39,61 +42,56 @@ Item {
         Text {
             id: text2
             x: 165
-            y: 142
-            text: "Frame Rate (FPS)"
+            y: 190
+            text: "RAM Usage"
             font.family: "Calibri"
-            font.pixelSize: 18
+            font.pixelSize: 17
             color: "white"
+            font.bold: true
         }
 
         Text {
             id: text3
             x: 165
-            y: 178
-            text: "RAM Usage"
+            y: 226
+            text: "Internal Flash Usage"
             font.family: "Calibri"
-            font.pixelSize: 18
+            font.pixelSize: 17
             color: "white"
+            font.bold: true
         }
 
         Text {
             id: text4
             x: 165
-            y: 214
-            text: "Internal Flash Usage"
+            y: 262
+            text: "External Flash Usage"
             font.family: "Calibri"
-            font.pixelSize: 18
+            font.pixelSize: 17
             color: "white"
+            font.bold: true
         }
 
         Text {
             id: text5
             x: 165
-            y: 250
-            text: "External Flash Usage"
+            y: 298
+            text: "Render Time (Frame Latency)"
             font.family: "Calibri"
-            font.pixelSize: 18
+            font.pixelSize: 17
             color: "white"
+            font.bold: true
         }
 
         Text {
             id: text6
             x: 165
-            y: 286
-            text: "Render Time (Frame Latency)"
-            font.family: "Calibri"
-            font.pixelSize: 18
-            color: "white"
-        }
-
-        Text {
-            id: text7
-            x: 165
-            y: 322
+            y: 334
             text: "CPU Load %"
             font.family: "Calibri"
-            font.pixelSize: 18
+            font.pixelSize: 17
             color: "white"
+            font.bold: true
         }
     }
 }

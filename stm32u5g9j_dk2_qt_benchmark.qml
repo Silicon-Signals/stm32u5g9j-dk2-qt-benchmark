@@ -9,7 +9,6 @@ Rectangle {
 
     property int currentScreen: MainScreen.ScreenIndex.MainscreenButton
     property int demoName: 1
-    property real tempfpsAvg: 0
     property real tempusageRAMAvg: 0
     property real tempinternalflashusageAvg: 0
     property real tempexternalflashusageAvg: 0
@@ -23,11 +22,12 @@ Rectangle {
     property int cpuloadAvg: 0
     property int tickTimeAvg: 0
     property bool openMenuOnReturn: false
+    property bool isAutoMode: false
 
     Text {
         id: demo
         x: 415
-        y: 106
+        y: 154
         z: 10
         font.family: "Calibri"
         font.pixelSize: 18
@@ -59,21 +59,9 @@ Rectangle {
     }
 
     Text {
-        id: framevalue
-        x: 415
-        y: 142
-        z: 10
-        text: fpsAvg
-        font.family: "Calibri"
-        font.pixelSize: 18
-        color: "white"
-        visible: currentScreen === MainScreen.ScreenIndex.ResultScreen
-    }
-
-    Text {
         id: ramvalue
         x: 415
-        y: 178
+        y: 190
         z: 10
         text: usageRAMAvg + " KB"
         font.family: "Calibri"
@@ -85,7 +73,7 @@ Rectangle {
     Text {
         id: internalflashvalue
         x: 415
-        y: 214
+        y: 226
         z: 10
         text: internalflashusageAvg + " KB"
         font.family: "Calibri"
@@ -97,7 +85,7 @@ Rectangle {
     Text {
         id: externalflashvalue
         x: 415
-        y: 250
+        y: 262
         z: 10
         text: externalflashusageAvg + " MB"
         font.family: "Calibri"
@@ -109,7 +97,7 @@ Rectangle {
     Text {
         id: rendervalue
         x: 415
-        y: 286
+        y: 298
         z: 10
         text: redertimeAvg + " ms"
         font.family: "Calibri"
@@ -121,7 +109,7 @@ Rectangle {
     Text {
         id: cpuvalue
         x: 415
-        y: 322
+        y: 334
         z: 10
         text: cpuloadAvg + " %"
         font.family: "Calibri"
@@ -182,7 +170,6 @@ Rectangle {
 
             if (currentScreen >= 1 && currentScreen <= 6) {
                 tickTimeAvg++;
-                tempfpsAvg        += setStatus.fps;
                 tempusageRAMAvg   += setStatus.ramUsage;
                 tempinternalflashusageAvg  += setStatus.internalflashUsage;
                 tempexternalflashusageAvg  += setStatus.externalflashUsage;
@@ -190,6 +177,19 @@ Rectangle {
                 tempcpuloadAvg    += setStatus.cpuUsage;
             } else {
                 tickTimeAvg = 0;
+            }
+        }
+    }
+
+    Timer {
+        id: autoTimer
+        interval: 3000
+        repeat: false
+        onTriggered: {
+            if (demoName < 6) {
+                currentScreen = demoName + 1;
+            } else {
+                currentScreen = 1;
             }
         }
     }
@@ -228,7 +228,6 @@ Rectangle {
 
     function goToResultScreen() {
         if (tickTimeAvg > 0) {
-            fpsAvg        = Math.round(tempfpsAvg       / tickTimeAvg);
             usageRAMAvg   = Math.round(tempusageRAMAvg  / tickTimeAvg);
             internalflashusageAvg = Math.round(tempinternalflashusageAvg / tickTimeAvg);
             externalflashusageAvg = Math.round(tempexternalflashusageAvg / tickTimeAvg);
@@ -236,19 +235,25 @@ Rectangle {
             cpuloadAvg    = Math.round(tempcpuloadAvg   / tickTimeAvg);
         }
         tickTimeAvg = 0;
-        tempfpsAvg = 0;
         tempusageRAMAvg = 0;
         tempinternalflashusageAvg = 0;
         tempexternalflashusageAvg = 0;
         tempredertimeAvg = 0;
         tempcpuloadAvg = 0;
 
-        openMenuOnReturn = true;
+        if (isAutoMode) {
+            openMenuOnReturn = false;
+            autoTimer.start();
+        } else {
+            openMenuOnReturn = true;
+        }
 
         currentScreen = MainScreen.ScreenIndex.ResultScreen;
     }
 
     function goToMainScreen() {
+        isAutoMode = false;
+        autoTimer.stop();
         currentScreen = MainScreen.ScreenIndex.MainscreenButton;
     }
 
@@ -268,6 +273,13 @@ Rectangle {
 
             onNavigateTo: {
                 currentScreen = index;
+                statusTimer.interval = 2000;
+                statusTimer.restart();
+            }
+
+            onStartAutoMode: {
+                isAutoMode = true;
+                currentScreen = MainScreen.ScreenIndex.VideoTest;
                 statusTimer.interval = 2000;
                 statusTimer.restart();
             }
@@ -326,6 +338,7 @@ Rectangle {
         id: resultScreen
         ResultScreen {
             id: resultScreenInstance
+            isAutoMode: root.isAutoMode
             onBackToMain: goToMainScreen()
         }
     }

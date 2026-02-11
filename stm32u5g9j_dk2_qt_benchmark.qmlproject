@@ -61,6 +61,8 @@ Project {
             "images/ui_button.png",
             "images/ui_button_center.png",
             "images/cancel.png",
+            "images/toggle_left.png",
+            "images/toggle_right.png",
             "images/siliconsignals_logo.png",
             "images/car_body.svg",
             "images/tire_pair1.svg",
