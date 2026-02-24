@@ -111,7 +111,7 @@ Rectangle {
         x: 415
         y: 334
         z: 10
-        text: cpuloadAvg + " %"
+	text: ((cpuloadAvg >= 1) ? (cpuloadAvg + " %") : "< 1%")
         font.family: "Calibri"
         font.pixelSize: 18
         color: "white"
