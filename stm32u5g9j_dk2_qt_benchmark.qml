@@ -59,6 +59,22 @@ Rectangle {
     }
 
     Text {
+        id: disclaimer
+        x: 274
+        y: 103
+        z: 10
+        text: "* SVG using pre-rendered bitmap"
+        font.family: "Calibri"
+        font.pixelSize: 18
+        color: "white"
+        font.bold: true
+        visible: {
+            currentScreen === MainScreen.ScreenIndex.ResultScreen &&
+            demoName === MainScreen.ScreenIndex.SVGDemo
+        }
+    }
+
+    Text {
         id: ramvalue
         x: 415
         y: 190
@@ -99,7 +115,7 @@ Rectangle {
         x: 415
         y: 298
         z: 10
-        text: redertimeAvg + " ms"
+        text: redertimeAvg + " ms" + (demoName === MainScreen.ScreenIndex.SVGDemo ? "  *" : "")
         font.family: "Calibri"
         font.pixelSize: 18
         color: "white"
@@ -111,7 +127,7 @@ Rectangle {
         x: 415
         y: 334
         z: 10
-	text: ((cpuloadAvg >= 1) ? (cpuloadAvg + " %") : "< 1%")
+	text: ((cpuloadAvg >= 1) ? (cpuloadAvg + " %") : "< 1%") + (demoName === MainScreen.ScreenIndex.SVGDemo ? "  *" : "")
         font.family: "Calibri"
         font.pixelSize: 18
         color: "white"
