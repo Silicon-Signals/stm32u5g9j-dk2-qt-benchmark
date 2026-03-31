@@ -1,0 +1,92 @@
+From 281216d60516d01cae84758aa16cb05ba0002d0b Mon Sep 17 00:00:00 2001
+From: keval.bhalodia <keval.bhalodia@siliconsignals.io>
+Date: Tue, 17 Mar 2026 15:08:46 +0530
+Subject: [PATCH] [PATCH: 2] Src folder patch
+
+- Apply this patch inside:
+	Patch: stm32u5x9-discovery-freertos-2.11.1/src
+---
+ CMakeLists.txt       |  7 +++++++
+ core/application.cpp | 20 ++++++++++++++++++++
+ 2 files changed, 27 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 8e387f0..aba1ec9 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -374,6 +374,13 @@ target_include_directories(
+   PRIVATE ${Qul_SOURCE_DIR}/include ${Qul_BINARY_DIR}/include
+           ${CMAKE_CURRENT_SOURCE_DIR})
+ 
++if(QUL_BOARD_SDK_DIR)
++    target_include_directories(Core PRIVATE
++        ${QUL_BOARD_SDK_DIR}/Drivers/CMSIS/Device/ST/STM32U5xx/Include
++        ${QUL_BOARD_SDK_DIR}/Drivers/CMSIS/Include
++    )
++endif()
++
+ target_include_directories(
+   CompilerExtraOptions
+   INTERFACE $<INSTALL_INTERFACE:include>
+diff --git a/core/application.cpp b/core/application.cpp
+index 049f67b..7e945e6 100644
+--- a/core/application.cpp
++++ b/core/application.cpp
+@@ -29,6 +29,7 @@
+ #include <qul/geopositionsource.h>
+ #include <qul/singleton.h>
+ #include "qul/private/staticscreenrotationhelpers.h"
++#include "stm32u5g9xx.h"
+ 
+ #ifndef NDEBUG
+ #include <qul/private/staticInitializerCheck.h>
+@@ -37,6 +38,16 @@
+ #include "perf.h"
+ #include <platform/platform.h>
+ 
++extern "C" {
++extern uint32_t HAL_GetTick(void);
++}
++
++extern volatile uint32_t framecounter;
++extern volatile uint64_t render_start;
++extern volatile uint64_t render_end;
++extern volatile uint64_t render_time;
++extern volatile uint64_t pause_time;
++
+ // Always do a full repaint, no partial update optimizations,
+ // useful for measuring worst case performance
+ //#define QUL_PERFORMANCE_LOGGING_FULL_REPAINT
+@@ -1147,6 +1158,8 @@ void Application::fullBufferingRepaint(RenderContext::RepaintStrategy &strategy,
+     Perf::Logger flushLogger(Perf::BackingStoreFlush);
+     GraphicsDevice device(
+         Platform::getPlatformInstance()->beginFrame(platformLayer, strategy.bounds(), refreshInterval));
++    framecounter++;
++
+     flushLogger.end();
+ 
+     Perf::Logger logger(Perf::ApplicationRepaint);
+@@ -1304,6 +1317,8 @@ void Application::processScreen(Items::Screen *screenItem,
+                                 bool &didPresentFrame,
+                                 Platform::FrameStatistics &stats)
+ {
++    render_start = DWT->CYCCNT;
++
+     Perf::Logger logger(Perf::ApplicationRepaint);
+     PlatformInterface::Screen *screen = screenItem->node.platformScreen;
+     if (!screen)
+@@ -1352,6 +1367,11 @@ void Application::processScreen(Items::Screen *screenItem,
+             || (s.refreshDelta == stats.refreshDelta && s.remainingBudget < stats.remainingBudget))) {
+         stats = s;
+     }
++    render_end =  DWT->CYCCNT;
++    uint32_t diff = render_end - render_start;
++    render_time = diff / (SystemCoreClock / 1000);
++    render_time -= pause_time;
++    pause_time = 0;
+ }
+ 
+ void Application::repaintForEachScreen(Items::ItemBase *root,
+-- 
+2.51.0.windows.1
+

@@ -1,0 +1,155 @@
+From 6129df19f5db5700b28d550384fc3941eb3ecb5d Mon Sep 17 00:00:00 2001
+From: keval.bhalodia <keval.bhalodia@siliconsignals.io>
+Date: Tue, 17 Mar 2026 14:54:29 +0530
+Subject: [PATCH] [PATCH: 1] Platform file patch
+
+- Apply it on:
+	Path: stm32u5x9-discovery-freertos-2.11.1/platform/boards/st
+---
+ stm32u5x9-discovery-common/platform_drawing.cpp     | 12 ++++++++++++
+ stm32u5x9-discovery-freertos/CMakeLists.txt         |  2 +-
+ stm32u5x9-discovery-freertos/FreeRTOSConfig.h       | 13 +++++++++++--
+ .../cmake/armgcc/stm32u5x9j-discovery.ld            |  6 ++++++
+ 4 files changed, 30 insertions(+), 3 deletions(-)
+
+diff --git a/stm32u5x9-discovery-common/platform_drawing.cpp b/stm32u5x9-discovery-common/platform_drawing.cpp
+index 75b7e14..5acee02 100644
+--- a/stm32u5x9-discovery-common/platform_drawing.cpp
++++ b/stm32u5x9-discovery-common/platform_drawing.cpp
+@@ -26,6 +26,10 @@
+ #include "platform_perf_measurement.h"
+ #include "platform_power.h"
+ #include "platform_time.h"
++#include "stm32u5g9xx.h"
++#include "system_stm32u5xx.h"
++
++volatile uint64_t pause_time = 0;
+ 
+ namespace Qul {
+ namespace Platform {
+@@ -40,9 +44,13 @@ int flushFrame(int interval, int *)
+ {
+     QUL_UNUSED(interval);
+ 
++    uint64_t wait_for_vsync_start_time = DWT->CYCCNT;
++
+     while (swapBuffersPending())
+         Private::suspend(Private::DSI_SEMAPHORE, SEMAPHORE_SUSPEND_INTERVAL_MAX);
+ 
++    pause_time += ((DWT->CYCCNT - wait_for_vsync_start_time) / (SystemCoreClock / 1000));
++
+     swapBuffers();
+ 
+     return 0;
+@@ -57,9 +65,13 @@ unsigned char *frontBuffer()
+ 
+ unsigned char *backBuffer()
+ {
++    uint64_t wait_for_vsync_start_time = DWT->CYCCNT;
++
+     while (swapBuffersPending())
+         Private::suspend(Private::DSI_SEMAPHORE, SEMAPHORE_SUSPEND_INTERVAL_MAX);
+ 
++    pause_time += ((DWT->CYCCNT - wait_for_vsync_start_time) / (SystemCoreClock / 1000));
++
+     return virtualBackBuffer();
+ }
+ 
+diff --git a/stm32u5x9-discovery-freertos/CMakeLists.txt b/stm32u5x9-discovery-freertos/CMakeLists.txt
+index 25a5e32..9830f8a 100644
+--- a/stm32u5x9-discovery-freertos/CMakeLists.txt
++++ b/stm32u5x9-discovery-freertos/CMakeLists.txt
+@@ -26,7 +26,7 @@ set_target_properties(Platform
+         QUL_PLATFORM_DEFAULT_SCREEN_HEIGHT 480
+         QUL_PLATFORM_DEFAULT_SCREEN_WIDTH 800
+         QUL_PLATFORM_DEFAULT_TEXT_CACHE_ENABLED ON
+-        QUL_PLATFORM_DEFAULT_TEXT_CACHE_SIZE "48*1024"
++        QUL_PLATFORM_DEFAULT_TEXT_CACHE_SIZE "10*1024"
+         QUL_PLATFORM_DEFAULT_NUM_FRAMES_TO_PRESERVE_ASSETS 1
+         STM32_EXTERNAL_LOADER "MX66LM1G45G_STM32U5G9J-DK2.stldr"
+         QUL_PLATFORM_EXCLUDED_DEMOS "automotive;motor_cluster;thermo"
+diff --git a/stm32u5x9-discovery-freertos/FreeRTOSConfig.h b/stm32u5x9-discovery-freertos/FreeRTOSConfig.h
+index 6bdc00f..7629376 100644
+--- a/stm32u5x9-discovery-freertos/FreeRTOSConfig.h
++++ b/stm32u5x9-discovery-freertos/FreeRTOSConfig.h
+@@ -56,6 +56,10 @@ extern uint32_t SystemCoreClock;
+ #define CMSIS_device_header "stm32u5xx.h"
+ #endif /* CMSIS_device_header */
+ 
++//For runtime stats collection
++extern void configureTimerForRunTimeStats(void);
++extern unsigned long getRunTimeCounterValue(void);
++
+ /*-------------------- STM32U5 specific defines -------------------*/
+ #define configENABLE_TRUSTZONE                   0
+ #define configRUN_FREERTOS_SECURE_ONLY           0
+@@ -73,6 +77,7 @@ extern uint32_t SystemCoreClock;
+ #define configMINIMAL_STACK_SIZE                 ((uint16_t)256)
+ #define configSTACK_ALLOCATION_FROM_SEPARATE_HEAP 0
+ #define configMAX_TASK_NAME_LEN                  ( 16 )
++#define configGENERATE_RUN_TIME_STATS            1
+ #define configUSE_TRACE_FACILITY                 1
+ #define configUSE_16_BIT_TICKS                   0
+ #define configUSE_MUTEXES                        1
+@@ -169,12 +174,16 @@ header file. */
+ /* Section where parameter definitions can be added (for instance, to override default ones in FreeRTOS.h) */
+ #define traceTASK_SWITCHED_OUT() xTaskCallApplicationTaskHook( pxCurrentTCB, (void*)1 )
+ #define traceTASK_SWITCHED_IN() xTaskCallApplicationTaskHook( pxCurrentTCB, (void*)0 )
++
++//runtime stats related macros
++#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS configureTimerForRunTimeStats
++#define portGET_RUN_TIME_COUNTER_VALUE getRunTimeCounterValue
+ /* USER CODE END Defines */
+ 
+ /* This definition is used to define the size of the FreeRTOS Stack for QUL thread.
+  * Disabling this will result in a compile time error.
+  */
+-#define QUL_STACK_SIZE 6*1024 //Words, not bytes!
++#define QUL_STACK_SIZE 2500 //Words, not bytes!
+ 
+ /* Use application allocated heap to get enough RAM with heap_4.c.
+  * The heap (__HeapStart in the linker script) is in internal SRAM on this board, to avoid
+@@ -183,7 +192,7 @@ header file. */
+  * configTOTAL_HEAP_SIZE macro from CMake.
+  */
+ #ifndef configTOTAL_HEAP_SIZE
+-#define configTOTAL_HEAP_SIZE             (600 * 1024)
++#define configTOTAL_HEAP_SIZE             (172 * 1024)
+ #endif
+ 
+ #define configAPPLICATION_ALLOCATED_HEAP  1
+diff --git a/stm32u5x9-discovery-freertos/cmake/armgcc/stm32u5x9j-discovery.ld b/stm32u5x9-discovery-freertos/cmake/armgcc/stm32u5x9j-discovery.ld
+index 9fdcc02..fdacd5d 100644
+--- a/stm32u5x9-discovery-freertos/cmake/armgcc/stm32u5x9j-discovery.ld
++++ b/stm32u5x9-discovery-freertos/cmake/armgcc/stm32u5x9j-discovery.ld
+@@ -195,21 +195,27 @@ SECTIONS
+ 
+   QulFontResourceData :
+   {
++    __ospi_font_start__ = .;
+     . = ALIGN(4);
+     *(QulFontResourceData)
++    __ospi_font_end__ = .;
+   } > OSPI
+ 
+   QulModuleResourceData :
+   {
++    __ospi_mres_start__ = .;
+     . = ALIGN(4);
+     *(QulModuleResourceData)
+     . = ALIGN(4);
++    __ospi_mres_end__ = .;
+   } > OSPI
+ 
+   QulResourceData :
+   {
++      __ospi_res_start__ = .;
+       . = ALIGN(4);
+       *(QulResourceData)
++      __ospi_res_end__ = .;
+   } > OSPI
+ 
+   /* Remove information from the compiler libraries */
+-- 
+2.51.0.windows.1
+
