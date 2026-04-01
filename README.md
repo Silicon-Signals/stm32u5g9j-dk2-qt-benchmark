@@ -11,7 +11,7 @@ Or download the ZIP file
 
 ---
 
-# 1. Required Software
+## 1. Required Software
 
 Install the following software before starting.
 
@@ -24,7 +24,7 @@ A **valid Qt for MCUs license** is required. The project will not build without 
 
 ---
 
-# 2. Get Qt for MCUs License
+## 2. Get Qt for MCUs License
 
 Install the **Qt Maintenance Tool** and activate your license.
 
@@ -33,7 +33,7 @@ https://doc.qt.io/qtlicenseserver/qls-how-to-install-service.html
 
 ---
 
-# 3. Install Qt for MCUs and SDK
+## 3. Install Qt for MCUs and SDK
 
 Follow the official Qt for MCUs installation guide:
 
@@ -43,7 +43,7 @@ During installation, make sure to install the **STM32U5G9J-DK2 SDK with FreeRTOS
 
 ---
 
-# 4. STM32U5G9J-DK2 Benchmarking Patch Guide
+## 4. STM32U5G9J-DK2 Benchmarking Patch Guide
 
 This provides patches required to generate benchmarking (Matrices) results on the **STM32U5G9J-DK2** platform using the Qt for MCUs SDK.
 
@@ -53,23 +53,23 @@ This patch is **only compatible with**: **stm32u5x9-discovery-freertos-2.11.1**
 
 ---
 
-# 5. Apply Required Patches
+## 5. Apply Required Patches
 
 Two patches must be applied to the SDK. The patch files are available in the **Patch** folder.
 
 It is recommended to **apply patches manually** to avoid conflicts.
 
-## Patch 1: Platform File Patch
+### Patch 1: Platform File Patch
 - **Patch File:** `0001-PATCH-1-Platform-file-patch`
 - **Target Path:** stm32u5x9-discovery-freertos-2.11.1/platform/boards/st
 
-## Patch 2: Source Folder Patch
+### Patch 2: Source Folder Patch
 - **Patch File:** `0002-PATCH-2-Src-folder-patch`
 - **Target Path:** stm32u5x9-discovery-freertos-2.11.1/src
 
 ---
 
-# 6. Rebuild the SDK
+## 6. Rebuild the SDK
 
 After applying the patches, rebuild the SDK.
 
@@ -83,7 +83,7 @@ Run the following command:
 
 ---
 
-# 7. SetUp and Run the Project
+## 7. SetUp and Run the Project
  
 - **Open Project in Qt Creator**
  
@@ -105,7 +105,7 @@ Run the following command:
  
 ---
 
-# 8. Run Pre-built Binary (Optional)
+## 8. Run Pre-built Binary (Optional)
 
 If you do not want to build the project, you can directly use the **pre-built binary**.
 
