@@ -2,12 +2,32 @@
 
 This project is used to generate **benchmark results (Matrices)** on the **STM32U5G9J-DK2** board using **Qt for MCUs**.
 
-Clone this repository:
+---
+
+## Disclaimer
+
+This repository contains **QML application code and STM32U5 platform adaptation code** provided by **Silicon Signals** for benchmarking purposes.
+
+The modifications and changes made on top of the original **Qt for MCUs sources** are **not the responsibility of The Qt Company**.
+
+To build this project, a **valid Qt for MCUs license** is required. Without a valid license, the QML application cannot be compiled.
+
+Users who do not have a license can request a **free evaluation license** from Qt:
+
+https://www.qt.io/product/qt-for-mcus
+
+Pre-built binaries are provided in this repository so users can run the benchmark directly on the board without compiling the project.
+
+---
+
+## Clone the Repository
+
+Clone this repository using:
  
 ```bash
 $ git clone https://github.com/Silicon-Signals/stm32u5g9j-dk2-qt-benchmark.git
 ```
-Or download the ZIP file
+Or download the **ZIP file** from GitHub
 
 ---
 
